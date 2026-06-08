@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PaperPlaneTilt, GithubLogo, LinkedinLogo, Envelope, Phone, MapPin } from 'phosphor-react';
+import { PaperPlaneTilt, GithubLogo, TelegramLogo, Envelope, Phone, MapPin } from 'phosphor-react';
+import { PROFILE } from '@/constants/profile';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -148,7 +149,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-foreground font-medium">Почта</p>
-                  <p className="text-muted-foreground">Rysbekov@gmail.com</p>
+                  <a href={`mailto:${PROFILE.email}`} className="text-muted-foreground hover:text-primary-glow transition-colors">{PROFILE.email}</a>
                 </div>
               </div>
 
@@ -158,7 +159,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-foreground font-medium">Телефон</p>
-                  <Link href='tel:' className="text-muted-foreground">+7(977) 494 52 35</Link>
+                  <a href={`tel:${PROFILE.phoneTel}`} className="text-muted-foreground hover:text-primary-glow transition-colors">{PROFILE.phone}</a>
                 </div>
               </div>
 
@@ -168,7 +169,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-foreground font-medium">Местоположение</p>
-                  <p className="text-muted-foreground">Россия, г.Сочи</p>
+                  <p className="text-muted-foreground">{PROFILE.location}</p>
                 </div>
               </div>
             </div>
@@ -176,11 +177,11 @@ const Contact = () => {
             <div>
               <h4 className="text-lg font-medium text-foreground mb-4">Подписывайтесь</h4>
               <div className="flex gap-4">
-                <a href="#" className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
+                <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
                   <GithubLogo size={20} className="text-primary-foreground" />
                 </a>
-                <a href="#" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
-                  <LinkedinLogo size={20} className="text-secondary-foreground" />
+                <a href={PROFILE.telegram} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+                  <TelegramLogo size={20} className="text-secondary-foreground" />
                 </a>
               </div>
             </div>

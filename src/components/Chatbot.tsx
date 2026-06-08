@@ -111,10 +111,11 @@ const Chatbot = () => {
   }, []);
 
   useEffect(() => {
+    if (!buttonRef.current) return;
     gsap.fromTo(
       buttonRef.current,
-      { scale: 0, rotation: -180 },
-      { scale: 1, rotation: 0, duration: 1, delay: 2, ease: 'back.out(1.7)' },
+      { scale: 0.8, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.5, delay: 1, ease: 'back.out(1.7)' },
     );
   }, []);
 

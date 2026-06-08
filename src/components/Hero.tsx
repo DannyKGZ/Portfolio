@@ -15,19 +15,19 @@ const Hero = () => {
   const orbRef3 = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 4 });
+    const tl = gsap.timeline({ delay: 0.2 });
 
     tl.from(titleRef.current, {
-      y: 50, opacity: 0, filter: 'blur(10px)', duration: 1, ease: 'power3.out',
+      y: 50, opacity: 0, filter: 'blur(10px)', duration: 1, ease: 'power3.out', immediateRender: false,
     })
       .from(subtitleRef.current, {
-        y: 30, opacity: 0, duration: 0.8, ease: 'power3.out',
+        y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', immediateRender: false,
       }, '-=0.5')
       .from(ctaRef.current, {
-        y: 30, opacity: 0, scale: 0.9, duration: 0.8, ease: 'back.out(1.7)',
+        y: 30, opacity: 0, scale: 0.9, duration: 0.8, ease: 'back.out(1.7)', immediateRender: false,
       }, '-=0.3')
       .from(splineRef.current, {
-        x: 100, opacity: 0, duration: 1.2, ease: 'power3.out',
+        x: 100, opacity: 0, duration: 1.2, ease: 'power3.out', immediateRender: false,
       }, '-=1');
 
     gsap.to(orbRef1.current, {

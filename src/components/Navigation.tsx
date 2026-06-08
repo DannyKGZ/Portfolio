@@ -12,28 +12,30 @@ const Navigation = () => {
 
   useEffect(() => {
     gsap.from(navRef.current, {
-      y: -100,
+      y: -40,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      delay: 3.5 
+      duration: 0.8,
+      ease: 'power3.out',
+      immediateRender: false,
     });
 
     gsap.from(logoRef.current, {
-      x: -50,
+      x: -30,
       opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
-      delay: 3.7
+      duration: 0.6,
+      ease: 'power3.out',
+      delay: 0.1,
+      immediateRender: false,
     });
 
     gsap.from(menuRef.current?.children || [], {
-      y: -20,
+      y: -12,
       opacity: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: "power3.out",
-      delay: 3.8
+      duration: 0.5,
+      stagger: 0.08,
+      ease: 'power3.out',
+      delay: 0.2,
+      immediateRender: false,
     });
   }, []);
 

@@ -10,7 +10,7 @@ import Chatbot from './Chatbot';
 import { destroySmoothScroll, initSmoothScroll, pauseSmoothScroll, resumeSmoothScroll } from '@/lib/scroll';
 
 const Portfolio = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!import.meta.env.PROD);
 
   useEffect(() => {
     if (isLoading) {
@@ -41,7 +41,7 @@ const Portfolio = () => {
     <div className="relative overflow-x-hidden">
       {isLoading && <Preloader onComplete={handleLoadingComplete} />}
       
-      <div className={`transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+      <div>
         <Navigation />
         <main>
           <Hero />

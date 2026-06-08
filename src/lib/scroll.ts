@@ -11,29 +11,33 @@ const NAV_OFFSET = -72;
 export function initSmoothScroll() {
   if (lenis) return lenis;
 
-  lenis = new Lenis({
-    duration: 1.15,
-    easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
-    smoothWheel: true,
-    touchMultiplier: 1.4,
-    autoRaf: false,
-  });
+  try {
+    lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 1.4,
+      autoRaf: false,
+    });
 
-  lenis.on('scroll', ScrollTrigger.update);
+    lenis.on('scroll', ScrollTrigger.update);
 
-  const onTick = (time: number) => {
-    lenis?.raf(time * 1000);
-  };
-  gsap.ticker.add(onTick);
-  gsap.ticker.lagSmoothing(0);
+    const onTick = (time: number) => {
+      lenis?.raf(time * 1000);
+    };
+    gsap.ticker.add(onTick);
+    gsap.ticker.lagSmoothing(0);
 
-  const originalDestroy = lenis.destroy.bind(lenis);
-  lenis.destroy = () => {
-    gsap.ticker.remove(onTick);
-    originalDestroy();
-  };
+    const originalDestroy = lenis.destroy.bind(lenis);
+    lenis.destroy = () => {
+      gsap.ticker.remove(onTick);
+      originalDestroy();
+    };
 
-  return lenis;
+    return lenis;
+  } catch {
+    return null;
+  }
 }
 
 export function destroySmoothScroll() {

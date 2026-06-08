@@ -13,7 +13,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
   const percentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fallback = window.setTimeout(onComplete, 6000);
+    const fallback = window.setTimeout(onComplete, 3500);
 
     const tl = gsap.timeline({
       onComplete: () => window.clearTimeout(fallback),
@@ -28,13 +28,13 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
 
       .to(progressBarRef.current, {
         width: "100%",
-        duration: 2.5,
+        duration: 1.5,
         ease: "power2.out"
       }, "-=0.3")
 
       .to({ value: 0 }, {
         value: 100,
-        duration: 2.5,
+        duration: 1.5,
         ease: "power2.out",
         onUpdate: function () {
           if (percentRef.current) {

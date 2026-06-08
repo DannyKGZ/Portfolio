@@ -30,7 +30,7 @@ export const PROFILE = {
   github: 'https://github.com/DannyKGZ',
   gitlab: 'http://82.146.55.239/Dannykg1996',
   hh: 'https://sochi.hh.ru/resume/6b1a369bff0dcf2d5e0039ed1f6c3779613774',
-  resumePath: '/profile.pdf',
+  resumePath: './profile.pdf',
   resumeFileName: 'Рысбеков-Руслан-резюме.pdf',
   employment: [
     'Полная занятость',

@@ -13,7 +13,11 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
   const percentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline();
+    const fallback = window.setTimeout(onComplete, 6000);
+
+    const tl = gsap.timeline({
+      onComplete: () => window.clearTimeout(fallback),
+    });
 
     tl.from(logoRef.current, {
       scale: 0.5,
@@ -55,6 +59,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
       }, "+=0.2");
 
     return () => {
+      window.clearTimeout(fallback);
       tl.kill();
     };
   }, [onComplete]);

@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PaperPlaneTilt, GithubLogo, TelegramLogo, Envelope, Phone, MapPin } from 'phosphor-react';
 import { PROFILE } from '@/constants/profile';
+import { submitContactForm } from '@/lib/contactForm';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,8 +16,10 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -60,8 +63,10 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatus('sending');
+    setStatusMessage('');
 
     const button = e.currentTarget.querySelector('button[type="submit"]');
     if (button) {
@@ -70,13 +75,21 @@ const Contact = () => {
         duration: 0.1,
         yoyo: true,
         repeat: 1,
-        ease: "power2.out"
+        ease: 'power2.out',
       });
     }
 
-    console.log('Form submitted:', formData);
+    const result = await submitContactForm(formData);
 
-    setFormData({ name: '', email: '', message: '' });
+    if (result.ok) {
+      setStatus('success');
+      setStatusMessage('Сообщение отправлено! Отвечу в ближайшее время.');
+      setFormData({ name: '', email: '', message: '' });
+      return;
+    }
+
+    setStatus('error');
+    setStatusMessage(result.message);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -123,8 +136,25 @@ const Contact = () => {
                 <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required rows={6} className="w-full px-4 py-3 bg-input glass border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 resize-none" placeholder="Расскажите о вашем проекте..." />
               </div>
 
-              <button type="submit" className="group w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-primary text-primary-foreground rounded-lg font-medium hover:shadow-glow-primary transition-all duration-300 hover:scale-105">
-                Отправить сообщение
+              {statusMessage && (
+                <p
+                  role="status"
+                  className={`text-sm rounded-lg px-4 py-3 border ${
+                    status === 'success'
+                      ? 'text-primary-glow border-primary/30 bg-primary/10'
+                      : 'text-red-400 border-red-500/30 bg-red-500/10'
+                  }`}
+                >
+                  {statusMessage}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="group w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-primary text-primary-foreground rounded-lg font-medium hover:shadow-glow-primary transition-all duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 disabled:cursor-not-allowed"
+              >
+                {status === 'sending' ? 'Отправка…' : 'Отправить сообщение'}
                 <PaperPlaneTilt size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
               </button>
             </form>

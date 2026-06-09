@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp, GithubLogo, GitlabLogo, TelegramLogo } from 'phosphor-react';
-import { PROFILE, WORK_EXPERIENCE } from '@/constants/profile';
+import { PROFILE } from '@/constants/profile';
 import { scrollToSection, scrollToTop } from '@/lib/scroll';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -61,25 +61,6 @@ const Footer = () => {
       <div className="container mx-auto max-w-6xl relative z-10">
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div>
-
-            <p className="text-foreground font-medium mb-2">{PROFILE.fullName}</p>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              {PROFILE.title} · {WORK_EXPERIENCE.duration} · {PROFILE.employer}. React, TypeScript, 1С-Битрикс — {PROFILE.projectsCount} проектов, {PROFILE.location}.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" title="GitHub" className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
-                <GithubLogo size={18} className="text-primary-foreground" />
-              </a>
-              <a href={PROFILE.gitlab} target="_blank" rel="noopener noreferrer" title="GitLab" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
-                <GitlabLogo size={18} className="text-secondary-foreground" />
-              </a>
-              <a href={PROFILE.telegram} target="_blank" rel="noopener noreferrer" title="Telegram" className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
-                <TelegramLogo size={18} className="text-primary-foreground" />
-              </a>
-            </div>
-          </div>
-
-          <div>
             <h4 className="text-lg font-medium text-foreground mb-4">Быстрые ссылки</h4>
             <nav className="space-y-3">
               <button onClick={() => scrollToSection('hero')} className="block text-muted-foreground hover:text-primary-glow transition-colors duration-300">
@@ -116,6 +97,21 @@ const Footer = () => {
                 <span className="text-primary-glow">Местоположение:</span><br />
                 {PROFILE.location}
               </p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-medium text-foreground mb-4">Соцсети</h4>
+            <div className="flex flex-wrap gap-3">
+              <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" title="GitHub" className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
+                <GithubLogo size={18} className="text-primary-foreground" />
+              </a>
+              <a href={PROFILE.gitlab} target="_blank" rel="noopener noreferrer" title="GitLab" className="w-10 h-10 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
+                <GitlabLogo size={18} className="text-secondary-foreground" />
+              </a>
+              <a href={PROFILE.telegram} target="_blank" rel="noopener noreferrer" title="Telegram" className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
+                <TelegramLogo size={18} className="text-primary-foreground" />
+              </a>
             </div>
           </div>
         </div>

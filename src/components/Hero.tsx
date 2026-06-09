@@ -1,5 +1,5 @@
 import { ArrowRight, DownloadSimple, Handshake } from 'phosphor-react';
-import { PROFILE, WORK_EXPERIENCE } from '@/constants/profile';
+import { PROFILE } from '@/constants/profile';
 import { scrollToSection } from '@/lib/scroll';
 
 const Hero = () => {
@@ -16,13 +16,13 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="snap-section relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" />
       <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-xl animate-pulse" />
       <div className="absolute top-1/3 right-1/3 w-24 h-24 bg-secondary/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
       <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-accent/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }} />
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <p className="text-primary-glow text-sm font-medium mb-4 tracking-wide uppercase">
           {PROFILE.portfolioTagline}
         </p>
@@ -35,14 +35,7 @@ const Hero = () => {
           <span className="text-primary-glow">{PROFILE.title}</span>
         </h1>
 
-        <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto leading-relaxed">
-          React, TypeScript, 1С-Битрикс · {WORK_EXPERIENCE.duration} · {PROFILE.location}
-        </p>
-        <p className="text-sm text-muted-foreground/80 mb-8 max-w-xl mx-auto">
-          {PROFILE.employer} · {PROFILE.businessTrips}
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button onClick={scrollToContact} className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-primary text-primary-foreground rounded-lg font-medium hover:shadow-glow-primary transition-all duration-300 hover:scale-105">
             <Handshake size={20} />
             Связаться со мной

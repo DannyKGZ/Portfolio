@@ -20,7 +20,7 @@ const skillCategories = [
     items: [
       'Функциональные компоненты + все хуки (useState, useEffect, useContext, кастомные хуки)',
       'Классовые компоненты (поддержка легаси-кода)',
-      'MUI (Material-UI), Styled Components',
+      'MUI (Material-UI), Styled Components, sliders-swiper',
       'Framer Motion, React Transition Group, CSS-анимации',
       'Порталы для модальных окон, кастомные хуки состояния',
       'react-hook-form + Zod — валидация форм на клиенте и сервере',
@@ -41,7 +41,6 @@ const skillCategories = [
     items: [
       'Git — ветвление, pull requests, code review, merge',
       'Docker + Ubuntu — контейнеризация для разработки и тестирования',
-      'MacBook в ежедневной работе',
       'Tailwind CSS — быстрая вёрстка лендингов и прототипов',
       'jQuery — только поддержка существующих легаси-проектов',
     ],
@@ -58,6 +57,8 @@ const skillCategories = [
   {
     title: 'Дополнительно',
     items: [
+      'Перешел на MacBook для облегчения разработки',
+      'Опыт работы с CMS Bitrix',
       'Опыт работы с CMS WordPress (кастомные темы, ACF, хуки)',
       'Активное использование AI-инструментов в разработке: Cursor, DeepSeek',
     ],
@@ -147,13 +148,13 @@ const About = () => {
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Сейчас я {PROFILE.titleShort.toLowerCase()} в {PROFILE.employer} — React, TypeScript, Next.js и 1С-Битрикс.
+              Сейчас я {PROFILE.titleShort.toLowerCase()} в небольшой команде — React, TypeScript, Next.js и 1С-Битрикс.
               От лендингов и мультисайтов до кастомных компонентов CMS и работы с легаси-кодом.
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
               Основная роль — фронтенд: React-виджеты внутри Bitrix и отдельные проекты на Next.js, компонентная архитектура по FSD,
-              анимации на Framer Motion, контроль качества вёрстки по макетам Figma. Тяжёлую бизнес-логику на бэкенде проектировал тимлид,
+              контроль качества вёрстки по макетам Figma. Тяжёлую бизнес-логику на бэкенде проектировал тимлид,
               но когда нужно было ускорить релиз — подключался к PHP-задачам: инфоблоки, свойства элементов, логика через API (Postman).
             </p>
 

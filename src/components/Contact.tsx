@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PaperPlaneTilt, GithubLogo, TelegramLogo, Envelope, Phone, MapPin } from 'phosphor-react';
+import { PaperPlaneTilt, Envelope, Phone, MapPin } from 'phosphor-react';
 import { PROFILE } from '@/constants/profile';
 import { submitContactForm } from '@/lib/contactForm';
 
@@ -107,9 +107,6 @@ const Contact = () => {
             Связаться <span className="text-primary-glow">со мной</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-primary rounded-full mx-auto mb-6" />
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Есть проект в голове или просто хотите поздороваться? Напишите мне — вместе создадим что-то крутое.
-          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -162,9 +159,6 @@ const Contact = () => {
 
           <div ref={infoRef} className="space-y-8">
             <div>
-              <h3 className="text-2xl font-light text-foreground mb-6">
-                Давайте на связи
-              </h3>
               <p className="text-muted-foreground leading-relaxed mb-8">
                 Я всегда рад работать над новыми проектами и сотрудничать с интересными людьми.
                 Будь то конкретная идея или просто желание обсудить возможности —
@@ -201,18 +195,6 @@ const Contact = () => {
                   <p className="text-foreground font-medium">Местоположение</p>
                   <p className="text-muted-foreground">{PROFILE.location}</p>
                 </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-medium text-foreground mb-4">Подписывайтесь</h4>
-              <div className="flex gap-4">
-                <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center hover:shadow-glow-primary transition-all duration-300 hover:scale-110">
-                  <GithubLogo size={20} className="text-primary-foreground" />
-                </a>
-                <a href={PROFILE.telegram} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center hover:shadow-glow-secondary transition-all duration-300 hover:scale-110">
-                  <TelegramLogo size={20} className="text-secondary-foreground" />
-                </a>
               </div>
             </div>
           </div>

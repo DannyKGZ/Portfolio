@@ -10,16 +10,11 @@ type SubmitResult =
 
 const WEB3FORMS_URL = 'https://api.web3forms.com/submit';
 
-export async function submitContactForm(data: ContactFormData): Promise<SubmitResult> {
-  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+// Access key Web3Forms — публичный, безопасен в клиентском коде
+const DEFAULT_ACCESS_KEY = 'e4d1d56e-3254-40b3-b162-67284e142c4e';
 
-  if (!accessKey) {
-    return {
-      ok: false,
-      message:
-        'Форма не настроена: добавьте VITE_WEB3FORMS_ACCESS_KEY в .env (локально) или в переменные окружения Timeweb.',
-    };
-  }
+export async function submitContactForm(data: ContactFormData): Promise<SubmitResult> {
+  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || DEFAULT_ACCESS_KEY;
 
   try {
     const response = await fetch(WEB3FORMS_URL, {

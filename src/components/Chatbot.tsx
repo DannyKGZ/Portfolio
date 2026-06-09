@@ -188,12 +188,12 @@ const Chatbot = () => {
       {isOpen && (
         <div
           ref={chatboxRef}
-          className="mb-4 w-[min(90vw,20rem)] h-[26rem] glass rounded-2xl overflow-hidden flex flex-col border border-white/10 shadow-glow-primary"
+          className="mb-4 w-[min(90vw,20rem)] h-[26rem] bg-card rounded overflow-hidden flex flex-col border border-border shadow-md"
         >
-          <div className="p-4 border-b border-white/10">
+          <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gradient-primary rounded-full">
+                <div className="p-2 bg-primary rounded">
                   <Robot size={20} className="text-primary-foreground" />
                 </div>
                 <div>
@@ -204,7 +204,7 @@ const Chatbot = () => {
               <button
                 type="button"
                 onClick={toggleChat}
-                className="p-1 hover:bg-white/10 rounded-full transition-colors"
+                className="p-1 hover:bg-muted rounded transition-colors"
                 aria-label="Закрыть чат"
               >
                 <X size={16} />
@@ -216,10 +216,10 @@ const Chatbot = () => {
             {messages.map((msg) => (
               <div key={msg.id} className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}>
                 <div
-                  className={`max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
+                  className={`max-w-[85%] px-3 py-2 rounded text-sm leading-relaxed ${
                     msg.isBot
-                      ? 'bg-muted/30 text-foreground border border-white/5'
-                      : 'bg-gradient-primary text-primary-foreground'
+                      ? 'bg-muted text-foreground border border-border'
+                      : 'bg-primary text-primary-foreground'
                   }`}
                 >
                   {msg.text}
@@ -228,7 +228,7 @@ const Chatbot = () => {
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="px-3 py-2 rounded-xl text-sm bg-muted/30 text-muted-foreground border border-white/5">
+                <div className="px-3 py-2 rounded text-sm bg-muted text-muted-foreground border border-border">
                   Печатает...
                 </div>
               </div>
@@ -243,14 +243,14 @@ const Chatbot = () => {
                 type="button"
                 onClick={() => sendText(label)}
                 disabled={isTyping}
-                className="px-2.5 py-1 text-xs rounded-full border border-primary/25 text-primary-glow hover:bg-primary/10 transition-colors disabled:opacity-50"
+                className="px-2.5 py-1 text-xs rounded border border-border text-muted-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-50"
               >
                 {label}
               </button>
             ))}
           </div>
 
-          <div className="p-4 border-t border-white/10">
+          <div className="p-4 border-t border-border">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -259,13 +259,13 @@ const Chatbot = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="Введите сообщение..."
                 disabled={isTyping}
-                className="flex-1 px-3 py-2 glass border border-white/10 rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50"
+                className="flex-1 px-3 py-2 bg-input border border-border rounded text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 disabled:opacity-50"
               />
               <button
                 type="button"
                 onClick={handleSendMessage}
                 disabled={isTyping || !message.trim()}
-                className="p-2 w-9 h-9 shrink-0 bg-gradient-primary rounded-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center"
+                className="p-2 w-9 h-9 shrink-0 bg-primary rounded hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center"
                 aria-label="Отправить"
               >
                 <PaperPlaneTilt size={16} className="text-primary-foreground" />
@@ -279,7 +279,7 @@ const Chatbot = () => {
         ref={buttonRef}
         type="button"
         onClick={toggleChat}
-        className="w-14 h-14 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow-primary hover:scale-110 transition-transform"
+        className="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-md hover:opacity-90 transition-opacity"
         aria-label={isOpen ? 'Закрыть чат' : 'Открыть чат'}
       >
         {isOpen ? (

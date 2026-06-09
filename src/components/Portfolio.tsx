@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Background3D from './Background3D';
 import Navigation from './Navigation';
 import Hero from './Hero';
 import About from './About';
@@ -16,6 +17,7 @@ const Portfolio = () => {
 
   return (
     <div className="relative overflow-x-hidden">
+      <Background3D />
       <Navigation />
       <main>
         <Hero />

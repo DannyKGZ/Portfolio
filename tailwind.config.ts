@@ -76,7 +76,8 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif']
+				sans: ['IBM Plex Sans', 'sans-serif'],
+				display: ['Space Grotesk', 'sans-serif'],
 			},
 			keyframes: {
 				'accordion-down': {

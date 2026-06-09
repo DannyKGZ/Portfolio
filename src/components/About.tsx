@@ -88,76 +88,50 @@ const About = () => {
         });
       };
 
-      scrollFrom(imageRef.current, {
-        x: -100, opacity: 0, filter: 'blur(10px)', duration: 1, ease: 'power3.out',
-      }, sectionRef.current, 'top 80%');
-
-      scrollFrom(contentRef.current?.children || [], {
-        y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-      }, contentRef.current, 'top 80%');
-
-      scrollFrom(categoriesRef.current?.children || [], {
-        y: 40, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-      }, categoriesRef.current);
-
-      scrollFrom(extraRef.current?.children || [], {
-        y: 40, opacity: 0, duration: 0.7, stagger: 0.15, ease: 'power3.out',
-      }, extraRef.current);
+      scrollFrom(imageRef.current, { y: 30, opacity: 0, duration: 0.8, ease: 'power2.out' }, sectionRef.current, 'top 80%');
+      scrollFrom(contentRef.current?.children || [], { y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }, contentRef.current, 'top 80%');
+      scrollFrom(categoriesRef.current?.children || [], { y: 20, opacity: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }, categoriesRef.current);
+      scrollFrom(extraRef.current?.children || [], { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }, extraRef.current);
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="snap-section py-20 px-6 relative overflow-hidden">
+    <section id="about" ref={sectionRef} className="py-24 px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div ref={imageRef} className="relative lg:sticky lg:top-28">
-            <div className="relative w-80 h-80 mx-auto lg:mx-0">
-              <div className="absolute inset-0 bg-gradient-primary rounded-full blur-xl opacity-30 animate-pulse" />
-              <div className="relative w-full h-full glass rounded-full p-2 hover:shadow-glow-primary transition-all duration-500">
-                <div className="w-full h-full rounded-full overflow-hidden bg-gradient-secondary flex items-center justify-center">
-                  <span className="text-7xl font-light text-primary-foreground/90 select-none">
-                    {PROFILE.initials}
-                  </span>
-                </div>
-              </div>
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary/30 rounded-full animate-float" />
-              <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-accent/20 rounded-full animate-float" style={{ animationDelay: '1s' }} />
+        <div className="flex items-start justify-between mb-16">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Обо мне<span className="text-primary">.</span>
+            </h2>
+          </div>
+          <p className="section-num hidden md:block">02</p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+          <div ref={imageRef} className="lg:col-span-4 lg:sticky lg:top-28">
+            <div className="w-48 h-48 border-2 border-foreground flex items-center justify-center bg-muted">
+              <span className="text-6xl font-bold text-foreground select-none">{PROFILE.initials}</span>
             </div>
-            <div className="mt-6 text-center lg:text-left space-y-1">
-              <p className="text-foreground font-medium">{PROFILE.fullName}</p>
-              <p className="text-sm text-primary-glow">{PROFILE.title}</p>
+            <div className="mt-6 space-y-1">
+              <p className="font-semibold text-lg">{PROFILE.fullName}</p>
+              <p className="text-sm text-primary font-medium">{PROFILE.title}</p>
               <p className="text-sm text-muted-foreground">{PROFILE.age} лет · {PROFILE.birthDate}</p>
               <p className="text-sm text-muted-foreground">{PROFILE.location}</p>
             </div>
           </div>
 
-          <div ref={contentRef} className="space-y-6">
-            <div>
-              <p className="text-primary-glow text-sm font-medium mb-3 tracking-wide uppercase">
-                {WORK_EXPERIENCE.period} · {WORK_EXPERIENCE.duration}
-              </p>
-              <h2 className="text-4xl md:text-5xl font-light text-foreground mb-4">
-                Обо <span className="text-primary-glow">мне</span>
-              </h2>
-              <div className="w-20 h-1 bg-gradient-primary rounded-full mb-6" />
-            </div>
-
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {PROFILE.careerStory}
-            </p>
-
+          <div ref={contentRef} className="lg:col-span-8 space-y-5">
+            <p className="text-lg text-muted-foreground leading-relaxed">{PROFILE.careerStory}</p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Сейчас я {PROFILE.titleShort.toLowerCase()} в небольшой команде — React, TypeScript, Next.js и 1С-Битрикс.
               От лендингов и мультисайтов до кастомных компонентов CMS и работы с легаси-кодом.
             </p>
-
             <p className="text-lg text-muted-foreground leading-relaxed">
               Основная роль — фронтенд: React-виджеты внутри Bitrix и отдельные проекты на Next.js, компонентная архитектура по FSD,
               контроль качества вёрстки по макетам Figma. Тяжёлую бизнес-логику на бэкенде проектировал тимлид,
               но когда нужно было ускорить релиз — подключался к PHP-задачам: инфоблоки, свойства элементов, логика через API (Postman).
             </p>
-
             <p className="text-lg text-muted-foreground leading-relaxed">
               Разрабатывал в команде с: TeamLead, Full-Stack Senior Developer, Junior FrontEnd Developer, Designer, Project Manager.
               На каждый из {PROFILE.projectsCount} коммерческих проектов есть доступ в GitLab — при необходимости могу предоставить.
@@ -165,60 +139,58 @@ const About = () => {
           </div>
         </div>
 
-        <div className="mt-20">
-          <h3 className="text-3xl font-light text-center text-foreground mb-4">
-            Стек и <span className="text-primary-glow">компетенции</span>
+        <div className="divider my-20" />
+
+        <div className="mb-12">
+          <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
+            Стек и компетенции<span className="text-primary">.</span>
           </h3>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Навыки, которыми пользуюсь в ежедневной разработке
-          </p>
-          <div ref={categoriesRef} className="grid md:grid-cols-2 gap-6">
-            {skillCategories.map((category) => (
-              <div key={category.title} className="glass p-6 rounded-xl hover:shadow-glow-primary transition-all duration-300">
-                <h4 className="text-lg font-medium text-primary-glow mb-4">{category.title}</h4>
-                <ul className="space-y-2">
-                  {category.items.map((item) => (
-                    <li key={item} className="text-sm text-muted-foreground leading-relaxed flex gap-2">
-                      <span className="text-primary shrink-0 mt-1">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <p className="text-muted-foreground">Навыки, которыми пользуюсь в ежедневной разработке</p>
         </div>
 
-        <div ref={extraRef} className="mt-16 grid md:grid-cols-2 gap-6">
-          <div className="glass p-6 rounded-xl">
-            <h4 className="text-lg font-medium text-primary-glow mb-4">Образование</h4>
-            <p className="text-foreground font-medium">{PROFILE.education.institution}</p>
+        <div ref={categoriesRef} className="grid md:grid-cols-2 gap-4">
+          {skillCategories.map((category, i) => (
+            <div key={category.title} className="card-flat">
+              <div className="flex items-start gap-4">
+                <span className="text-xs font-bold text-primary mt-1">{String(i + 1).padStart(2, '0')}</span>
+                <div className="flex-1">
+                  <h4 className="font-semibold mb-3">{category.title}</h4>
+                  <ul className="space-y-2">
+                    {category.items.map((item) => (
+                      <li key={item} className="text-sm text-muted-foreground leading-relaxed pl-3 border-l-2 border-border">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div ref={extraRef} className="mt-4 grid md:grid-cols-2 gap-4">
+          <div className="card-flat">
+            <h4 className="font-semibold mb-3">Образование</h4>
+            <p className="font-medium">{PROFILE.education.institution}</p>
             <p className="text-muted-foreground text-sm mt-1">{PROFILE.education.specialty}</p>
             <p className="text-muted-foreground text-sm">{PROFILE.education.year} · {PROFILE.education.level}</p>
           </div>
-          <div className="glass p-6 rounded-xl">
-            <h4 className="text-lg font-medium text-primary-glow mb-4">Занятость и языки</h4>
+          <div className="card-flat">
+            <h4 className="font-semibold mb-3">Занятость и языки</h4>
             <div className="flex flex-wrap gap-2 mb-4">
               {PROFILE.employment.map((type) => (
-                <span key={type} className="px-3 py-1 bg-primary/10 text-primary-glow text-xs rounded-full border border-primary/20">
-                  {type}
-                </span>
+                <span key={type} className="tag">{type}</span>
               ))}
             </div>
             {PROFILE.languages.map((lang) => (
               <p key={lang.name} className="text-sm text-muted-foreground">
-                {lang.name} — <span className="text-foreground">{lang.level}</span>
+                {lang.name} — <span className="text-foreground font-medium">{lang.level}</span>
               </p>
             ))}
-            <p className="text-sm text-muted-foreground mt-3">
-              Гражданство: {PROFILE.citizenship}
-            </p>
+            <p className="text-sm text-muted-foreground mt-3">Гражданство: {PROFILE.citizenship}</p>
           </div>
         </div>
       </div>
-
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
     </section>
   );
 };

@@ -32,16 +32,16 @@ const getBotReply = (input: string): string => {
     return `${PROFILE.title} в ${PROFILE.employer} ${WORK_EXPERIENCE.since} — ${WORK_EXPERIENCE.duration}. ${PROFILE.projectsCount} коммерческих проектов на React и 1С-Битрикс.`;
   }
 
-  if (/стек|технолог|навык|умени|умеешь|знаешь|компетенц|fsd|next/.test(q)) {
-    return 'Стек: React, TypeScript, Next.js, 1С-Битрикс, FSD, MUI, Framer Motion, Tailwind, Zod + react-hook-form, Git, Docker. Вёрстка по Figma, React-виджеты в Bitrix и отдельные проекты на Next.js.';
+  if (/стек|технолог|навык|умени|умеешь|знаешь|компетенц/.test(q)) {
+    return 'Стек: React, TypeScript, JavaScript, MUI, Tailwind, Styled Components, React Hook Form, Zod, Swiper, 1С-Битрикс, WordPress, REST API, Git, Docker, Webpack. Pixel Perfect по Figma и Photoshop. AI: Cursor, DeepSeek, MCP Figma.';
   }
 
-  if (/контакт|связ|почт|email|телефон|telegram|телеграм|написать|связаться/.test(q)) {
-    return `Почта: ${PROFILE.email} · Телефон: ${PROFILE.phone} · Telegram: ${PROFILE.telegramHandle} · ${PROFILE.location}. WhatsApp и Viber тоже доступны.`;
+  if (/контакт|связ|почт|email|телефон|telegram|телеграм|vk|вконтакте|написать|связаться/.test(q)) {
+    return `Почта: ${PROFILE.email} · Телефон: ${PROFILE.phone} · Telegram: ${PROFILE.telegramHandle} · VK: vk.com/${PROFILE.vkHandle} · ${PROFILE.location}. WhatsApp и Viber тоже доступны.`;
   }
 
   if (/react|реакт/.test(q)) {
-    return 'React — основной инструмент: функциональные компоненты, хуки, MUI, Framer Motion, FSD. Виджеты внутри Bitrix и отдельные приложения на Next.js.';
+    return 'React — основной инструмент: TypeScript, MUI, React Hook Form, Zod, кастомные компоненты, модальные окна, Swiper. Интеграция с Bitrix через REST API.';
   }
 
   if (/битрикс|bitrix|php/.test(q)) {
@@ -56,8 +56,8 @@ const getBotReply = (input: string): string => {
     return `Резюме можно скачать кнопкой «Скачать резюме» в шапке или написать на ${PROFILE.email}. Также есть профиль на HH.ru.`;
   }
 
-  if (/github|гитхаб|gitlab|гитлаб|hh|хедхантер/.test(q)) {
-    return `GitHub: ${PROFILE.github} · GitLab: ${PROFILE.gitlab} · HH.ru: профиль в резюме · Telegram: ${PROFILE.telegramHandle}`;
+  if (/github|гитхаб|gitlab|гитлаб|hh|хедхантер|vk|вконтакте/.test(q)) {
+    return `GitHub: ${PROFILE.github} · GitLab: ${PROFILE.gitlab} · VK: ${PROFILE.vk} · HH.ru: профиль в резюме · Telegram: ${PROFILE.telegramHandle}`;
   }
 
   if (/сочи|город|где жив|локац|переезд|командиров/.test(q)) {

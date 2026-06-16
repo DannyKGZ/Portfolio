@@ -7,8 +7,8 @@ export const PROFILE = {
   fullName: 'Рысбеков Руслан Замирович',
   initials: 'РР',
   displayName: 'Руслан',
-  title: 'Фронтенд-разработчик',
-  titleShort: 'Фронтенд-разработчик',
+  title: 'Frontend-разработчик',
+  titleShort: 'Frontend-разработчик',
   portfolioTagline: 'Персональное портфолио — мои проекты, стек и опыт работы',
   birthDate: '18 июня 1996',
   age: 29,
@@ -17,8 +17,8 @@ export const PROFILE = {
   relocation: 'Не готов к переезду',
   businessTrips: 'Готов к командировкам',
   citizenship: 'Россия',
-  employer: 'ИП Барков',
-  employerRole: 'Фронтенд-разработчик',
+  employer: 'ИП Dreams',
+  employerRole: 'Frontend-разработчик',
   projectsCount: 7,
   email: 'dannykg1996@gmail.com',
   phone: '+7 (977) 494-52-35',
@@ -27,6 +27,8 @@ export const PROFILE = {
   viber: 'viber://chat?number=79774945235',
   telegram: 'https://t.me/danny_KG',
   telegramHandle: '@danny_KG',
+  vk: 'https://vk.com/danny_kg',
+  vkHandle: 'danny_kg',
   github: 'https://github.com/DannyKGZ',
   gitlab: 'http://82.146.55.239/Dannykg1996',
   hh: 'https://sochi.hh.ru/resume/6b1a369bff0dcf2d5e0039ed1f6c3779613774',
@@ -46,7 +48,7 @@ export const PROFILE = {
   languages: [{ name: 'Русский', level: 'Родной' }],
   preloaderText: 'Добро пожаловать на моё портфолио',
   careerStory:
-    'Раньше работал машинистом Московского метро. Увидел, как друзья-разработчики работают удалённо, уволился и начал самоучкой изучать программирование. С октября 2023 года — коммерческая фронтенд-разработка.',
+    'Работал машинистом Московского метро. Увидел, как друзья-разработчики работают удалённо, вдохновился, уволился и начал самоучкой изучать программирование. С октября 2023 года — коммерческая фронтенд-разработка.',
 } as const;
 
 export const WORK_EXPERIENCE = {

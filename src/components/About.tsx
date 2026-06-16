@@ -1,67 +1,66 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PROFILE, WORK_EXPERIENCE } from '@/constants/profile';
+import { PROFILE } from '@/constants/profile';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const STACK_INTRO =
+  'Специализируюсь на создании сложных пользовательских интерфейсов с соблюдением дизайна (Pixel Perfect) по макетам Figma и Photoshop. Разрабатываю и поддерживаю проекты от лендингов до интернет-магазинов, обеспечивая высокую скорость загрузки, адаптивность и кроссбраузерную совместимость.';
+
 const skillCategories = [
   {
-    title: 'Архитектура и методологии',
+    title: 'Основной стек',
+    items: ['React', 'TypeScript', 'JavaScript (ES6+)'],
+  },
+  {
+    title: 'Стилизация',
     items: [
-      'React + TypeScript — типобезопасность, масштабируемость',
-      'Next.js (App Router, SSR, SSG, API routes)',
-      'Feature-Sliced Design (FSD) — организация кода в проектах с длительной поддержкой',
-      'Компонентный подход, композиция, переиспользуемость',
+      'Material-UI (MUI)',
+      'Tailwind CSS',
+      'Styled Components',
+      'CSS Modules',
+      'БЭМ-методология',
     ],
   },
   {
-    title: 'React-разработка',
+    title: 'Управление формами',
+    items: ['React Hook Form', 'Zod — валидация и кастомизация ошибок'],
+  },
+  {
+    title: 'Графика и анимация',
     items: [
-      'Функциональные компоненты + все хуки (useState, useEffect, useContext, кастомные хуки)',
-      'Классовые компоненты (поддержка легаси-кода)',
-      'MUI (Material-UI), Styled Components, sliders-swiper',
-      'Framer Motion, React Transition Group, CSS-анимации',
-      'Порталы для модальных окон, кастомные хуки состояния',
-      'react-hook-form + Zod — валидация форм на клиенте и сервере',
+      'Swiper — кастомизация слайдеров',
+      'Яндекс.Карты и 2GIS — кастомизация меток, построение маршрутов',
+      'Спрайтовые SVG-иконки',
+      'Оптимизация изображений',
     ],
   },
   {
-    title: 'Работа с 1С-Битрикс',
+    title: 'Работа с данными',
     items: [
-      'Разработка на PHP 7.4+ в экосистеме Битрикс',
-      'Создание собственных компонентов (включая компонентные классы), вывод свойств инфоблоков и разделов',
-      'REST API Битрикса, обработчики событий',
-      'Интеграция React-приложений внутрь шаблонов Битрикс (виджеты, админка, публичная часть)',
-      'Администрирование (настройка прав, агенты, производительность, композит, кэширование)',
+      'REST API — интеграция, обработка запросов, типизация',
+      'Управление контентом через JSON-файлы',
     ],
   },
   {
-    title: 'Инструменты и окружение',
+    title: 'CMS и Backend',
     items: [
-      'Git — ветвление, pull requests, code review, merge',
-      'Docker + Ubuntu — контейнеризация для разработки и тестирования',
-      'Tailwind CSS — быстрая вёрстка лендингов и прототипов',
-      'jQuery — только поддержка существующих легаси-проектов',
+      '1С-Битрикс — инфоблоки, свойства, кастомные компоненты и шаблоны, администрирование',
+      'WordPress',
     ],
   },
   {
-    title: 'Вёрстка и дизайн-системы',
+    title: 'Инфраструктура',
     items: [
-      'Адаптивная и кроссбраузерная вёрстка (Mobile First / Desktop First)',
-      'Pixel Perfect контроль',
-      'Работа с макетами: Figma, Photoshop',
-      'Опыт интеграции готовых вёрсток в Bitrix и WordPress',
+      'Git — pull, commit, branch, merge',
+      'Docker / WSL2 — настройка окружения, сборка контейнеров',
+      'Webpack',
     ],
   },
   {
     title: 'Дополнительно',
-    items: [
-      'Перешел на MacBook для облегчения разработки',
-      'Опыт работы с CMS Bitrix',
-      'Опыт работы с CMS WordPress (кастомные темы, ACF, хуки)',
-      'Активное использование AI-инструментов в разработке: Cursor, DeepSeek',
-    ],
+    items: ['AI-агенты Cursor и DeepSeek', 'MCP — Figma'],
   },
 ];
 
@@ -98,14 +97,11 @@ const About = () => {
 
   return (
     <section id="about" ref={sectionRef} className="py-24 px-6">
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex items-start justify-between mb-16">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Обо мне<span className="text-primary">.</span>
-            </h2>
-          </div>
-          <p className="section-num hidden md:block">02</p>
+      <div className="container">
+        <div className="mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+            Обо мне<span className="text-primary">.</span>
+          </h2>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12 items-start">
@@ -145,24 +141,24 @@ const About = () => {
           <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
             Стек и компетенции<span className="text-primary">.</span>
           </h3>
-          <p className="text-muted-foreground">Навыки, которыми пользуюсь в ежедневной разработке</p>
+          <p className="text-muted-foreground leading-relaxed max-w-3xl">{STACK_INTRO}</p>
         </div>
 
-        <div ref={categoriesRef} className="grid md:grid-cols-2 gap-4">
+        <div ref={categoriesRef} className="grid md:grid-cols-3 gap-4">
           {skillCategories.map((category, i) => (
-            <div key={category.title} className="card-flat">
-              <div className="flex items-start gap-4">
-                <span className="text-xs font-bold text-primary mt-1">{String(i + 1).padStart(2, '0')}</span>
-                <div className="flex-1">
-                  <h4 className="font-semibold mb-3">{category.title}</h4>
-                  <ul className="space-y-2">
-                    {category.items.map((item) => (
-                      <li key={item} className="text-sm text-muted-foreground leading-relaxed pl-3 border-l-2 border-border">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div key={category.title} className="card-flat relative overflow-hidden">
+              <span className="skill-card-num" aria-hidden>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div className="relative z-10">
+                <h4 className="font-semibold mb-3">{category.title}</h4>
+                <ul className="space-y-2">
+                  {category.items.map((item) => (
+                    <li key={item} className="text-sm text-muted-foreground leading-relaxed pl-3 border-l-2 border-border">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           ))}

@@ -26,13 +26,12 @@ const Hero = () => {
         <HeroCoderScene />
       </div>
 
-      <div className="container mx-auto max-w-6xl px-6 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 items-end">
-          <div className="lg:col-span-8">
+      <div className="container px-6 relative z-10">
+        <div className="max-w-4xl">
             <p className="section-label mb-6">{PROFILE.portfolioTagline}</p>
 
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight mb-8">
-              {PROFILE.displayName}
+              {PROFILE.lastName} {PROFILE.firstName}
               <span className="text-primary">.</span>
             </h1>
 
@@ -54,11 +53,6 @@ const Hero = () => {
                 <ArrowRight size={18} />
               </button>
             </div>
-          </div>
-
-          <div className="lg:col-span-4 lg:text-right hidden lg:block">
-            <p className="section-num">01</p>
-          </div>
         </div>
 
         <div className="divider mt-20" />

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp, GithubLogo, GitlabLogo, TelegramLogo } from 'phosphor-react';
+import { siVk } from 'simple-icons';
 import { PROFILE } from '@/constants/profile';
 import { scrollToSection, scrollToTop } from '@/lib/scroll';
 
@@ -22,7 +23,7 @@ const Footer = () => {
 
   return (
     <footer ref={footerRef} className="border-t border-border py-16 px-6">
-      <div className="container mx-auto max-w-6xl">
+      <div className="container">
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider mb-4">Быстрые ссылки</h4>
@@ -95,6 +96,17 @@ const Footer = () => {
                 className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
               >
                 <TelegramLogo size={18} />
+              </a>
+              <a
+                href={PROFILE.vk}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="VK"
+                className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+              >
+                <svg viewBox="0 0 24 24" width={18} height={18} fill="currentColor" aria-hidden>
+                  <path d={siVk.path} />
+                </svg>
               </a>
             </div>
           </div>

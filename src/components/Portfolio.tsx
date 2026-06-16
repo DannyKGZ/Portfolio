@@ -7,6 +7,7 @@ import Projects from './Projects';
 import Contact from './Contact';
 import Footer from './Footer';
 import Chatbot from './Chatbot';
+import SectionSideNum from './SectionSideNum';
 import { destroySmoothScroll, initSmoothScroll } from '@/lib/scroll';
 
 const Portfolio = () => {
@@ -19,6 +20,7 @@ const Portfolio = () => {
     <div className="relative overflow-x-hidden">
       <Background3D />
       <Navigation />
+      <SectionSideNum />
       <main>
         <Hero />
         <About />

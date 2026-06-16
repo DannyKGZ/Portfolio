@@ -30,7 +30,7 @@ const Navigation = () => {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto max-w-6xl px-6 py-4">
+        <div className="container px-6 py-4">
           <div className="flex items-center justify-between">
             <button onClick={() => goToSection('hero')} className="text-lg font-bold tracking-tight font-[Space_Grotesk]">
               РР<span className="text-primary">.</span>

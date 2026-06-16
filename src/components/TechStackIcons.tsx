@@ -1,4 +1,11 @@
 import { TECH_STACK } from '@/constants/techStack';
+import { SIMPLE_ICON_MAP } from '@/lib/techStackSimpleIcons';
+
+const SimpleIconSvg = ({ path, color }: { path: string; color: string }) => (
+  <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden>
+    <path fill={`#${color}`} d={path} />
+  </svg>
+);
 
 const BitrixIcon = () => (
   <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden>
@@ -125,22 +132,16 @@ const TechStackIcons = () => (
     <ul className="flex flex-wrap gap-3">
       {TECH_STACK.map((tech) => {
         const CustomIcon = CUSTOM_ICONS[tech.slug];
+        const simpleIcon = SIMPLE_ICON_MAP[tech.slug];
 
         return (
           <li key={tech.name}>
             <div className="tech-stack__item group" title={tech.name}>
               {CustomIcon ? (
                 <CustomIcon />
-              ) : (
-                <img
-                  src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color}`}
-                  alt=""
-                  width={24}
-                  height={24}
-                  loading="lazy"
-                  className="w-6 h-6"
-                />
-              )}
+              ) : simpleIcon ? (
+                <SimpleIconSvg path={simpleIcon.path} color={tech.color || simpleIcon.hex} />
+              ) : null}
               <span className="tech-stack__label">{tech.name}</span>
             </div>
           </li>

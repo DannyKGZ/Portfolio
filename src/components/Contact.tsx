@@ -1,21 +1,57 @@
 import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PaperPlaneTilt, Envelope, Phone, MapPin } from 'phosphor-react';
 import { PROFILE } from '@/constants/profile';
 import { submitContactForm } from '@/lib/contactForm';
+import {
+  contactFormSchema,
+  validateContactForm,
+  type ContactFormValues,
+} from '@/lib/contactFormSchema';
+import YandexSmartCaptcha from '@/components/YandexSmartCaptcha';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const CAPTCHA_CLIENT_KEY = import.meta.env.VITE_YANDEX_SMARTCAPTCHA_CLIENT_KEY ?? '';
+
+const formFieldsSchema = contactFormSchema.pick({
+  name: true,
+  email: true,
+  message: true,
+  company: true,
+});
 
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const formStartedAt = useRef(Date.now());
 
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(formFieldsSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+      company: '',
+    },
+    mode: 'onTouched',
+  });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -35,56 +71,102 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const resetCaptcha = () => {
+    setCaptchaToken('');
+    setCaptchaResetKey((prev) => prev + 1);
+  };
+
+  const onSubmit = handleSubmit(async (values) => {
     setStatus('sending');
     setStatusMessage('');
 
-    const result = await submitContactForm(formData);
+    const validation = validateContactForm(
+      {
+        ...values,
+        captchaToken,
+        formStartedAt: formStartedAt.current,
+      },
+      { requireCaptcha: Boolean(CAPTCHA_CLIENT_KEY) },
+    );
+
+    if (validation.ok === false) {
+      setStatus('error');
+      setStatusMessage(validation.message);
+      if (validation.field === 'name' || validation.field === 'email' || validation.field === 'message') {
+        setError(validation.field, { message: validation.message });
+      }
+      return;
+    }
+
+    const result = await submitContactForm({
+      ...validation.data,
+      captchaToken: captchaToken || undefined,
+      formStartedAt: formStartedAt.current,
+    });
 
     if (result.ok) {
       setStatus('success');
       setStatusMessage('Сообщение отправлено! Отвечу в ближайшее время.');
-      setFormData({ name: '', email: '', message: '' });
+      reset({ name: '', email: '', message: '', company: '' });
+      formStartedAt.current = Date.now();
+      resetCaptcha();
       return;
     }
 
-    setStatus('error');
-    setStatusMessage(result.message);
-  };
+    if (result.ok === false) {
+      setStatus('error');
+      setStatusMessage(result.message);
+      const field = result.field;
+      if (field === 'name' || field === 'email' || field === 'message') {
+        setError(field, { message: result.message });
+      }
+      resetCaptcha();
+    }
+  });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const fieldError = (name: keyof ContactFormValues) =>
+    errors[name] ? (
+      <p className="text-red-400 text-xs mt-1.5" role="alert">
+        {errors[name]?.message}
+      </p>
+    ) : null;
 
   return (
     <section id="contact" ref={sectionRef} className="py-24 px-6">
-      <div className="container mx-auto max-w-6xl">
-        <div ref={titleRef} className="flex items-start justify-between mb-16">
-          <div>
-            <p className="section-label mb-3">Контакты</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Связаться со мной<span className="text-primary">.</span>
-            </h2>
-          </div>
-          <p className="section-num hidden md:block">04</p>
+      <div className="container">
+        <div ref={titleRef} className="mb-16">
+          <p className="section-label mb-3">Контакты</p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+            Связаться со мной<span className="text-primary">.</span>
+          </h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          <div ref={formRef} className="card-flat">
-            <form onSubmit={handleSubmit} className="space-y-5">
+          <div ref={formRef} className="card-flat relative">
+            <form onSubmit={onSubmit} className="space-y-5" noValidate>
+              <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
+                <label htmlFor="company">Компания</label>
+                <input
+                  type="text"
+                  id="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  {...register('company')}
+                />
+              </div>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">Имя</label>
                 <input
                   type="text"
                   id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="input-field"
+                  autoComplete="name"
+                  maxLength={80}
+                  className={`input-field ${errors.name ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                   placeholder="Ваше имя"
+                  {...register('name')}
                 />
+                {fieldError('name')}
               </div>
 
               <div>
@@ -92,35 +174,55 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="input-field"
+                  autoComplete="email"
+                  maxLength={254}
+                  className={`input-field ${errors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                   placeholder="ваш@email.com"
+                  {...register('email')}
                 />
+                {fieldError('email')}
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2">Сообщение</label>
                 <textarea
                   id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
                   rows={6}
-                  className="input-field resize-none"
-                  placeholder="Расскажите о вашем проекте..."
+                  maxLength={2000}
+                  className={`input-field resize-none ${errors.message ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                  placeholder="Опишите задачу или вопрос"
+                  {...register('message')}
                 />
+                {fieldError('message')}
               </div>
+
+              {CAPTCHA_CLIENT_KEY ? (
+                <div className="space-y-2">
+                  <YandexSmartCaptcha
+                    siteKey={CAPTCHA_CLIENT_KEY}
+                    resetKey={captchaResetKey}
+                    onSuccess={setCaptchaToken}
+                    onExpired={resetCaptcha}
+                    onNetworkError={() => {
+                      setStatus('error');
+                      setStatusMessage('Не удалось загрузить капчу. Обновите страницу.');
+                      resetCaptcha();
+                    }}
+                  />
+                  {!captchaToken && status === 'error' && statusMessage.includes('робот') && (
+                    <p className="text-red-400 text-xs" role="alert">
+                      Подтвердите, что вы не робот.
+                    </p>
+                  )}
+                </div>
+              ) : null}
 
               {statusMessage && (
                 <p
                   role="status"
                   className={`text-sm px-4 py-3 border ${
                     status === 'success'
-                      ? 'text-primary border-primary/30 bg-primary/5'
+                      ? 'text-emerald-400 border-emerald-400/60 bg-emerald-500/15 shadow-[0_0_20px_hsl(152_76%_50%_/_0.15)]'
                       : 'text-red-400 border-red-500/30 bg-red-500/10'
                   }`}
                 >
@@ -130,7 +232,7 @@ const Contact = () => {
 
               <button
                 type="submit"
-                disabled={status === 'sending'}
+                disabled={status === 'sending' || (Boolean(CAPTCHA_CLIENT_KEY) && !captchaToken)}
                 className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {status === 'sending' ? 'Отправка…' : 'Отправить сообщение'}

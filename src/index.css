@@ -81,6 +81,25 @@
     font-family: 'Space Grotesk', sans-serif;
   }
 
+  .section-num-fixed {
+    @apply fixed left-4 md:left-6 xl:left-8 top-1/2 -translate-y-1/2 z-30 pointer-events-none hidden md:block;
+  }
+
+  .section-num-fixed__value {
+    animation: section-num-in 0.35s ease-out;
+  }
+
+  @keyframes section-num-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .btn-primary {
     @apply inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm transition-all duration-200 hover:bg-primary-glow hover:shadow-[var(--glow-primary)];
     font-family: 'Space Grotesk', sans-serif;
@@ -101,6 +120,12 @@
   .card-flat {
     @apply bg-card/70 backdrop-blur-sm border border-border p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-[var(--shadow-glass)];
     border-radius: var(--radius);
+  }
+
+  .skill-card-num {
+    @apply absolute inset-0 flex items-center justify-center font-bold text-border/20 leading-none select-none pointer-events-none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(5rem, 14vmin, 11rem);
   }
 
   .tag {

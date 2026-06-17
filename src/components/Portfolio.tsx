@@ -21,7 +21,7 @@ const Portfolio = () => {
       <Background3D />
       <Navigation />
       <SectionSideNum />
-      <main>
+      <main className="section-main">
         <Hero />
         <About />
         <Projects />

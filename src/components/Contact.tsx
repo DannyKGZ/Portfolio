@@ -132,7 +132,7 @@ const Contact = () => {
     ) : null;
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 px-6">
+    <section id="contact" ref={sectionRef} className="py-24">
       <div className="container">
         <div ref={titleRef} className="mb-16">
           <p className="section-label mb-3">Контакты</p>

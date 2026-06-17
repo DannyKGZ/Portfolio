@@ -170,7 +170,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-24 px-6 bg-muted/30">
+    <section id="projects" ref={sectionRef} className="py-24 bg-muted/30">
       <div className="container">
         <div ref={titleRef} className="mb-16">
           <p className="section-label mb-3">{WORK_EXPERIENCE.period}</p>

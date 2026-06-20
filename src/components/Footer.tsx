@@ -22,7 +22,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer ref={footerRef} className="border-t border-border py-16 px-6">
+    <footer id="footer" ref={footerRef} className="relative z-40 border-t border-border py-16 px-6">
       <div className="container">
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div>

@@ -54,6 +54,7 @@ const skillCategories = [
     title: 'Инфраструктура',
     items: [
       'Git — pull, commit, branch, merge',
+      'SFTP — работа с файлами на сервере, загрузка и обновление проектов',
       'Docker / WSL2 — настройка окружения, сборка контейнеров',
       'Webpack',
     ],

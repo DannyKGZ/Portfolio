@@ -90,6 +90,14 @@
     align-items: center;
     justify-content: flex-end;
     box-sizing: border-box;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  .section-num-fixed--hidden {
+    opacity: 0;
+    visibility: hidden;
   }
 
   @media (min-width: 1280px) {

@@ -33,7 +33,7 @@ const getBotReply = (input: string): string => {
   }
 
   if (/стек|технолог|навык|умени|умеешь|знаешь|компетенц/.test(q)) {
-    return 'Стек: React, TypeScript, JavaScript, MUI, Tailwind, Styled Components, React Hook Form, Zod, Swiper, 1С-Битрикс, WordPress, REST API, Git, Docker, Webpack. Pixel Perfect по Figma и Photoshop. AI: Cursor, DeepSeek, MCP Figma.';
+    return 'Стек: React, TypeScript, JavaScript, MUI, Tailwind, Styled Components, React Hook Form, Zod, Swiper, 1С-Битрикс, WordPress, REST API, Git, SFTP, Docker, Webpack. Pixel Perfect по Figma и Photoshop. AI: Cursor, DeepSeek, MCP Figma.';
   }
 
   if (/контакт|связ|почт|email|телефон|telegram|телеграм|vk|вконтакте|написать|связаться/.test(q)) {

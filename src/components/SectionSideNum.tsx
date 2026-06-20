@@ -3,6 +3,7 @@ import { MAIN_SECTIONS } from '@/constants/sections';
 
 const SectionSideNum = () => {
   const [activeNum, setActiveNum] = useState(MAIN_SECTIONS[0].num);
+  const [visible, setVisible] = useState(true);
   const ratiosRef = useRef<Map<string, number>>(new Map());
 
   useEffect(() => {
@@ -40,8 +41,26 @@ const SectionSideNum = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const footer = document.getElementById('footer');
+    if (!footer) return;
+
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(!entry.isIntersecting);
+      },
+      { threshold: 0 },
+    );
+
+    footerObserver.observe(footer);
+    return () => footerObserver.disconnect();
+  }, []);
+
   return (
-    <div className="section-num-fixed" aria-hidden>
+    <div
+      className={`section-num-fixed${visible ? '' : ' section-num-fixed--hidden'}`}
+      aria-hidden
+    >
       <p key={activeNum} className="section-num section-num-fixed__value">
         {activeNum}
       </p>

@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'phosphor-react';
 import { WORK_EXPERIENCE } from '@/constants/profile';
+import { trackGoal } from '@/lib/analytics';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,6 +151,10 @@ const ProjectItems = ({ items }: { items: string[] }) => (
   </ul>
 );
 
+const trackProjectClick = (url: string, title: string) => {
+  trackGoal('project_click', { url, title });
+};
+
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -200,6 +205,7 @@ const Projects = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        onClick={() => trackProjectClick(project.url, project.title)}
                       >
                         {project.url}
                       </a>
@@ -209,6 +215,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline shrink-0"
+                      onClick={() => trackProjectClick(project.url, project.title)}
                     >
                       Смотреть проект
                       <ArrowUpRight size={16} />

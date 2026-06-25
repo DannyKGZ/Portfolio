@@ -1,5 +1,6 @@
 import { ArrowRight, DownloadSimple, Handshake } from 'phosphor-react';
 import { PROFILE } from '@/constants/profile';
+import { trackGoal } from '@/lib/analytics';
 import { scrollToSection } from '@/lib/scroll';
 import MatrixRain from './MatrixRain';
 import HeroCoderScene from './HeroCoderScene';
@@ -10,6 +11,7 @@ const Hero = () => {
   const scrollToContact = () => scrollToSection('contact');
 
   const downloadCV = () => {
+    trackGoal('resume_download');
     const link = document.createElement('a');
     link.href = PROFILE.resumePath;
     link.download = PROFILE.resumeFileName;

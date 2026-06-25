@@ -12,6 +12,7 @@ import {
   type ContactFormValues,
 } from '@/lib/contactFormSchema';
 import YandexSmartCaptcha from '@/components/YandexSmartCaptcha';
+import { trackGoal } from '@/lib/analytics';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -105,6 +106,7 @@ const Contact = () => {
     });
 
     if (result.ok) {
+      trackGoal('contact_form');
       setStatus('success');
       setStatusMessage('Сообщение отправлено! Отвечу в ближайшее время.');
       reset({ name: '', email: '', message: '', company: '' });

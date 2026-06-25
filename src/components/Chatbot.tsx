@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ChatCircle, X, PaperPlaneTilt, Robot } from 'phosphor-react';
 import { PROFILE, WORK_EXPERIENCE } from '@/constants/profile';
+import { trackGoal } from '@/lib/analytics';
 
 type ChatMessage = {
   id: number;
@@ -143,6 +144,7 @@ const Chatbot = () => {
         onComplete: () => setIsOpen(false),
       });
     } else {
+      trackGoal('chatbot_open');
       setIsOpen(true);
     }
   };
@@ -161,6 +163,7 @@ const Chatbot = () => {
     setMessages((prev) => [...prev, userMsg]);
     setMessage('');
     setIsTyping(true);
+    trackGoal('chatbot_message');
 
     setTimeout(() => {
       const botMsg: ChatMessage = {

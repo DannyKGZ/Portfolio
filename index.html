@@ -19,10 +19,16 @@
     })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=110152126', 'ym');
 
     ym(110152126, 'init', {
+      defer: true,
       webvisor: true,
       clickmap: true,
       accurateTrackBounce: true,
       trackLinks: true,
+    });
+
+    ym(110152126, 'hit', location.href, {
+      title: document.title,
+      referer: document.referrer,
     });
   </script>
   <!-- /Yandex.Metrika counter -->

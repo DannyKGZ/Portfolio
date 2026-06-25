@@ -8,7 +8,6 @@ import Contact from './Contact';
 import Footer from './Footer';
 import Chatbot from './Chatbot';
 import SectionSideNum from './SectionSideNum';
-import YandexMetrica from './YandexMetrica';
 import { useSectionAnalytics } from '@/hooks/useSectionAnalytics';
 import { destroySmoothScroll, initSmoothScroll } from '@/lib/scroll';
 
@@ -22,7 +21,6 @@ const Portfolio = () => {
 
   return (
     <div className="relative overflow-x-hidden">
-      <YandexMetrica />
       <Background3D />
       <Navigation />
       <SectionSideNum />

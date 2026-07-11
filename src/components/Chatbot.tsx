@@ -26,15 +26,15 @@ const getBotReply = (input: string): string => {
   }
 
   if (/кто ты|кто такой|имя|фио|руслан|рысбеков/.test(q)) {
-    return `${PROFILE.fullName} — ${PROFILE.title}. ${PROFILE.portfolioTagline}`;
+    return `${PROFILE.fullName} — ${PROFILE.title}. ${PROFILE.heroSummary}`;
   }
 
-  if (/опыт|стаж|сколько лет|работаешь|где работа|ип барков|барков/.test(q)) {
+  if (/опыт|стаж|сколько лет|работаешь|где работа|ип барков|барков|dreams/.test(q)) {
     return `${PROFILE.title} в ${PROFILE.employer} ${WORK_EXPERIENCE.since} — ${WORK_EXPERIENCE.duration}. ${PROFILE.projectsCount} коммерческих проектов на React и 1С-Битрикс.`;
   }
 
   if (/стек|технолог|навык|умени|умеешь|знаешь|компетенц/.test(q)) {
-    return 'Стек: React, TypeScript, JavaScript, MUI, Tailwind, Styled Components, React Hook Form, Zod, Swiper, 1С-Битрикс, WordPress, REST API, Git, SFTP, Docker, Webpack. Pixel Perfect по Figma и Photoshop. AI: Cursor, DeepSeek, MCP Figma.';
+    return 'Стек: React, TypeScript, Next.js, MUI, Tailwind, React Hook Form, Zod, 1С-Битрикс, REST API, Git, Docker, Figma. Вёрстка по макетам, e-commerce и корпоративные сайты.';
   }
 
   if (/контакт|связ|почт|email|телефон|telegram|телеграм|vk|вконтакте|написать|связаться/.test(q)) {
@@ -57,8 +57,8 @@ const getBotReply = (input: string): string => {
     return `Резюме можно скачать кнопкой «Скачать резюме» в шапке или написать на ${PROFILE.email}. Также есть профиль на HH.ru.`;
   }
 
-  if (/github|гитхаб|gitlab|гитлаб|hh|хедхантер|vk|вконтакте/.test(q)) {
-    return `GitHub: ${PROFILE.github} · GitLab: ${PROFILE.gitlab} · VK: ${PROFILE.vk} · HH.ru: профиль в резюме · Telegram: ${PROFILE.telegramHandle}`;
+  if (/github|гитхаб|hh|хедхантер|vk|вконтакте/.test(q)) {
+    return `GitHub: ${PROFILE.github} · HH.ru: ${PROFILE.hh} · VK: ${PROFILE.vk} · Telegram: ${PROFILE.telegramHandle}`;
   }
 
   if (/сочи|город|где жив|локац|переезд|командиров/.test(q)) {
@@ -73,8 +73,8 @@ const getBotReply = (input: string): string => {
     return `Открыт к: ${PROFILE.employment.join(', ').toLowerCase()}.`;
   }
 
-  if (/ai|cursor|deepseek|нейросет|ассистент/.test(q)) {
-    return 'В работе активно использую AI-инструменты: Cursor, DeepSeek Agent — для ускорения разработки и рефакторинга.';
+  if (/ai|cursor|deepseek|claude|нейросет|ассистент/.test(q)) {
+    return 'Активно использую Cursor, DeepSeek и Claude в ежедневной разработке: ускорение задач, рефакторинг, разбор кода. Финальный код всегда проверяю и дописываю сам.';
   }
 
   if (/спасибо|благодар|пока|до свид/.test(q)) {

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUp, GithubLogo, GitlabLogo, TelegramLogo } from 'phosphor-react';
+import { ArrowUp, GithubLogo, TelegramLogo } from 'phosphor-react';
 import { siVk } from 'simple-icons';
 import { PROFILE } from '@/constants/profile';
 import { scrollToSection, scrollToTop } from '@/lib/scroll';
@@ -80,13 +80,13 @@ const Footer = () => {
                 <GithubLogo size={18} />
               </a>
               <a
-                href={PROFILE.gitlab}
+                href={PROFILE.hh}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="GitLab"
-                className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+                title="HH.ru"
+                className="w-10 h-10 border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors text-xs font-bold"
               >
-                <GitlabLogo size={18} />
+                HH
               </a>
               <a
                 href={PROFILE.telegram}

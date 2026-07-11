@@ -114,9 +114,19 @@ const CrossBrowserIcon = () => (
   </svg>
 );
 
+const RestApiIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden>
+    <rect width="24" height="24" rx="4" fill="#14532D" />
+    <text x="12" y="15" textAnchor="middle" fill="#22C55E" fontSize="7" fontWeight="700" fontFamily="Space Grotesk, sans-serif">
+      API
+    </text>
+  </svg>
+);
+
 const CUSTOM_ICONS: Record<string, () => JSX.Element> = {
   'custom-bitrix': BitrixIcon,
   'custom-css': CssIcon,
+  'custom-rest': RestApiIcon,
   'custom-photoshop': PhotoshopIcon,
   'custom-cursor': CursorIcon,
   'custom-deepseek': DeepSeekIcon,

@@ -9,9 +9,11 @@ export const PROFILE = {
   displayName: 'Руслан',
   title: 'Frontend-разработчик',
   titleShort: 'Frontend-разработчик',
-  portfolioTagline: 'Персональное портфолио — мои проекты, стек и опыт работы',
+  heroBadge: '1 год 9 мес · 7 проектов · Сочи / удалённо',
+  heroSummary:
+    'E-commerce и корпоративные сайты на React, TypeScript и 1С-Битрикс. Вёрстка по Figma, интеграция API, кастомные CMS-компоненты.',
   birthDate: '18 июня 1996',
-  age: 29,
+  age: 30,
   city: 'Сочи',
   location: 'Россия, г. Сочи',
   relocation: 'Не готов к переезду',
@@ -30,7 +32,6 @@ export const PROFILE = {
   vk: 'https://vk.com/danny_kg',
   vkHandle: 'danny_kg',
   github: 'https://github.com/DannyKGZ',
-  gitlab: 'http://82.146.55.239/Dannykg1996',
   hh: 'https://sochi.hh.ru/resume/6b1a369bff0dcf2d5e0039ed1f6c3779613774',
   resumePath: './profile.pdf',
   resumeFileName: 'Рысбеков-Руслан-резюме.pdf',
@@ -46,9 +47,8 @@ export const PROFILE = {
     level: 'Среднее специальное образование',
   },
   languages: [{ name: 'Русский', level: 'Родной' }],
-  preloaderText: 'Добро пожаловать на моё портфолио',
   careerStory:
-    'Работал машинистом Московского метро. Увидел, как друзья-разработчики работают удалённо, вдохновился, уволился и начал самоучкой изучать программирование. С октября 2023 года — коммерческая фронтенд-разработка.',
+    'Работал машинистом Московского метро. Увидел, как друзья-разработчики работают удалённо, уволился и начал самоучкой изучать программирование. С октября 2023 — коммерческая фронтенд-разработка.',
 } as const;
 
 export const WORK_EXPERIENCE = {

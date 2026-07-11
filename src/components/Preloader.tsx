@@ -69,9 +69,9 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
       <div className="text-center">
         <div ref={logoRef} className="mb-8">
           <h1 className="text-2xl md:text-3xl font-light text-foreground text-glow mb-4">
-            {PROFILE.preloaderText}
+            {PROFILE.displayName} · {PROFILE.title}
           </h1>
-          <p className="text-xl text-muted-foreground">{PROFILE.fullName}</p>
+          <p className="text-xl text-muted-foreground">{PROFILE.heroBadge}</p>
         </div>
 
         <div className="w-80 max-w-md mx-auto">

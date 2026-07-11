@@ -245,9 +245,8 @@ const Contact = () => {
 
           <div ref={infoRef} className="space-y-6">
             <p className="text-muted-foreground leading-relaxed">
-              Я всегда рад работать над новыми проектами и сотрудничать с интересными людьми.
-              Будь то конкретная идея или просто желание обсудить возможности —
-              буду рад услышать вас.
+              Открыт к предложениям по фронтенду: React, TypeScript, Next.js, Bitrix.
+              Напишите о вакансии или проекте — отвечу в течение дня.
             </p>
 
             <div className="space-y-3">

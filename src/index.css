@@ -183,6 +183,44 @@
     border-radius: var(--radius);
   }
 
+  .btn-download-resume {
+    position: relative;
+    overflow: hidden;
+    min-width: 11.75rem;
+    justify-content: center;
+  }
+
+  .btn-download-resume:disabled {
+    opacity: 1;
+    cursor: wait;
+  }
+
+  .btn-download-resume--done {
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+  }
+
+  .btn-download-resume__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: hsl(var(--primary) / 0.22);
+    transition: width 80ms linear;
+    pointer-events: none;
+  }
+
+  .btn-download-resume--done .btn-download-resume__fill {
+    background: hsl(var(--primary) / 0.18);
+  }
+
+  .btn-download-resume__label {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
   .btn-ghost {
     @apply inline-flex items-center gap-2 px-6 py-3 text-foreground font-medium text-sm transition-colors duration-200 hover:text-primary;
     font-family: 'Space Grotesk', sans-serif;

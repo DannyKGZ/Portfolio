@@ -1,67 +1,58 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PROFILE } from '@/constants/profile';
+import { PROFILE, WORK_EXPERIENCE } from '@/constants/profile';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const STACK_INTRO =
-  'Специализируюсь на создании сложных пользовательских интерфейсов с соблюдением дизайна (Pixel Perfect) по макетам Figma и Photoshop. Разрабатываю и поддерживаю проекты от лендингов до интернет-магазинов, обеспечивая высокую скорость загрузки, адаптивность и кроссбраузерную совместимость.';
+  'Фронтенд на React и TypeScript: компонентная архитектура, вёрстка по Figma, формы, API, e-commerce и корпоративные сайты на 1С-Битрикс.';
 
 const skillCategories = [
   {
-    title: 'Основной стек',
-    items: ['React', 'TypeScript', 'JavaScript (ES6+)'],
+    title: 'Frontend',
+    items: ['React', 'TypeScript', 'Next.js', 'JavaScript (ES6+)', 'SSR / CSR — серверный и клиентский рендеринг'],
   },
   {
-    title: 'Стилизация',
+    title: 'UI и вёрстка',
     items: [
-      'Material-UI (MUI)',
-      'Tailwind CSS',
-      'Styled Components',
-      'CSS Modules',
-      'БЭМ-методология',
+      'Styled Components, CSS Modules',
+      'Sass, Less, Bootstrap',
+      'БЭМ, адаптив, кроссбраузерность',
     ],
   },
   {
-    title: 'Управление формами',
-    items: ['React Hook Form', 'Zod — валидация и кастомизация ошибок'],
-  },
-  {
-    title: 'Графика и анимация',
+    title: 'Дизайн и UI-системы',
     items: [
-      'Swiper — кастомизация слайдеров',
-      'Яндекс.Карты и 2GIS — кастомизация меток, построение маршрутов',
-      'Спрайтовые SVG-иконки',
-      'Оптимизация изображений',
+      'Работа с Figma — макеты, компоненты, передача в вёрстку',
+      'Tailwind CSS, Material UI, Shadcn/UI',
+      'Понимание принципов UX-дизайна',
     ],
   },
   {
-    title: 'Работа с данными',
+    title: 'Формы и данные',
     items: [
-      'REST API — интеграция, обработка запросов, типизация',
-      'Управление контентом через JSON-файлы',
+      'React Hook Form + Zod',
+      'REST API — интеграция и типизация',
+      'JSON-конфиги для контента',
+      'Работа с CSV-файлами',
     ],
   },
   {
-    title: 'CMS и Backend',
+    title: 'CMS и интеграции',
     items: [
-      '1С-Битрикс — инфоблоки, свойства, кастомные компоненты и шаблоны, администрирование',
-      'WordPress',
+      '1С-Битрикс — компоненты, инфоблоки, React-виджеты',
+      'WordPress — CMS',
+      'Яндекс.Карты, Google Maps, 2GIS, Google API',
+      'Swiper, SVG-спрайты',
     ],
   },
   {
-    title: 'Инфраструктура',
+    title: 'Инструменты',
     items: [
-      'Git — pull, commit, branch, merge',
-      'SFTP — работа с файлами на сервере, загрузка и обновление проектов',
-      'Docker / WSL2 — настройка окружения, сборка контейнеров',
-      'Webpack',
+      'Git, Docker / WSL2, Vite, Webpack, Postman',
+      'Cursor, DeepSeek, Claude',
     ],
-  },
-  {
-    title: 'Дополнительно',
-    items: ['AI-агенты Cursor и DeepSeek', 'MCP — Figma'],
   },
 ];
 
@@ -113,25 +104,30 @@ const About = () => {
             <div className="mt-6 space-y-1">
               <p className="font-semibold text-lg">{PROFILE.fullName}</p>
               <p className="text-sm text-primary font-medium">{PROFILE.title}</p>
-              <p className="text-sm text-muted-foreground">{PROFILE.age} лет · {PROFILE.birthDate}</p>
-              <p className="text-sm text-muted-foreground">{PROFILE.location}</p>
+              <p className="text-sm text-muted-foreground">{PROFILE.age} лет · {PROFILE.location}</p>
+              <p className="text-sm text-muted-foreground">{PROFILE.relocation} · {PROFILE.businessTrips.toLowerCase()}</p>
             </div>
           </div>
 
           <div ref={contentRef} className="lg:col-span-8 space-y-5">
             <p className="text-lg text-muted-foreground leading-relaxed">{PROFILE.careerStory}</p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Сейчас я {PROFILE.titleShort.toLowerCase()} в небольшой команде — React, TypeScript, Next.js и 1С-Битрикс.
-              От лендингов и мультисайтов до кастомных компонентов CMS и работы с легаси-кодом.
+              Сейчас — {PROFILE.titleShort.toLowerCase()} в {PROFILE.employer} ({WORK_EXPERIENCE.period}).
+              React-виджеты в Bitrix, отдельные проекты на Next.js с SSR и CSR, компонентная архитектура по FSD.
+              Подключался к PHP-задачам, когда нужно было ускорить релиз: инфоблоки, свойства, API.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Основная роль — фронтенд: React-виджеты внутри Bitrix и отдельные проекты на Next.js, компонентная архитектура по FSD,
-              контроль качества вёрстки по макетам Figma. Тяжёлую бизнес-логику на бэкенде проектировал тимлид,
-              но когда нужно было ускорить релиз — подключался к PHP-задачам: инфоблоки, свойства элементов, логика через API (Postman).
+              Команда: тимлид, senior full-stack, frontend разработчик, дизайнер, PM.
+              {PROFILE.projectsCount} коммерческих проектов в продакшене — код и доступ к репозиториям по запросу.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Разрабатывал в команде с: TeamLead, Full-Stack Senior Developer, Junior FrontEnd Developer, Designer, Project Manager.
-              На каждый из {PROFILE.projectsCount} коммерческих проектов есть доступ в GitLab — при необходимости могу предоставить.
+              Работа с Figma: читаю макеты, сверяю вёрстку, общаюсь с дизайнером на одном языке.
+              UI-библиотеки — Tailwind CSS, Material UI, Shadcn/UI.
+              Понимаю принципы UX-дизайна: иерархия, отступы, состояния элементов, удобство на мобильных.
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Активно использую AI-инструменты — Cursor, DeepSeek и Claude: ускоряю разработку,
+              рефакторинг, генерацию boilerplate и разбор чужого кода. Всегда проверяю результат и пишу финальный код сам.
             </p>
           </div>
         </div>
@@ -173,18 +169,15 @@ const About = () => {
             <p className="text-muted-foreground text-sm">{PROFILE.education.year} · {PROFILE.education.level}</p>
           </div>
           <div className="card-flat">
-            <h4 className="font-semibold mb-3">Занятость и языки</h4>
-            <div className="flex flex-wrap gap-2 mb-4">
+            <h4 className="font-semibold mb-3">Занятость</h4>
+            <div className="flex flex-wrap gap-2">
               {PROFILE.employment.map((type) => (
                 <span key={type} className="tag">{type}</span>
               ))}
             </div>
-            {PROFILE.languages.map((lang) => (
-              <p key={lang.name} className="text-sm text-muted-foreground">
-                {lang.name} — <span className="text-foreground font-medium">{lang.level}</span>
-              </p>
-            ))}
-            <p className="text-sm text-muted-foreground mt-3">Гражданство: {PROFILE.citizenship}</p>
+            <p className="text-sm text-muted-foreground mt-4">
+              Русский — родной
+            </p>
           </div>
         </div>
       </div>

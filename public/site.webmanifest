@@ -1,0 +1,15 @@
+{
+  "name": "Рысбеков Руслан — Frontend-разработчик",
+  "short_name": "Рысбеков РР",
+  "description": "Портфолио frontend-разработчика: React, TypeScript, Next.js, 1С-Битрикс.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c0e12",
+  "theme_color": "#0c0e12",
+  "lang": "ru",
+  "icons": [
+    { "src": "./favicon.ico", "sizes": "48x48", "type": "image/x-icon" },
+    { "src": "./apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

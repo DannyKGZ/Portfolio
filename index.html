@@ -3,35 +3,124 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Рысбеков Руслан — Фронтенд-разработчик | Портфолио</title>
+  <meta name="theme-color" content="#0c0e12" />
+
+  <title>Рысбеков Руслан — Frontend-разработчик (React, TypeScript) | Портфолио</title>
   <meta name="description"
-    content="Рысбеков Руслан — frontend-разработчик. React, TypeScript, Next.js, 1С-Битрикс. 1 год 9 месяцев, 7 продакшн-проектов. Сочи, удалённая работа." />
+    content="Рысбеков Руслан — frontend-разработчик. React, TypeScript, Next.js, 1С-Битрикс. 1 год 9 месяцев коммерческого опыта, 7 продакшн-проектов. Сочи, удалённая работа." />
   <meta name="author" content="Рысбеков Руслан Замирович" />
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-    (function (m, e, t, r, i, k, a) {
-      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
-      m[i].l = 1 * new Date();
-      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-      k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a);
-    })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=110152126', 'ym');
+  <meta name="keywords" content="frontend разработчик, React, TypeScript, Next.js, 1С-Битрикс, вёрстка, Сочи, удалённо, портфолио" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://rrysbekov.ru/" />
 
-    ym(110152126, 'init', {
-      defer: true,
-      webvisor: true,
-      clickmap: true,
-      accurateTrackBounce: true,
-      trackLinks: true,
-    });
+  <link rel="icon" href="./favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
 
-    ym(110152126, 'hit', location.href, {
-      title: document.title,
-      referer: document.referrer,
-    });
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Рысбеков Руслан — портфолио" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content="https://rrysbekov.ru/" />
+  <meta property="og:title" content="Рысбеков Руслан — Frontend-разработчик (React, TypeScript)" />
+  <meta property="og:description"
+    content="React, TypeScript, Next.js, 1С-Битрикс. 7 продакшн-проектов, коммерческий опыт с октября 2023. Сочи / удалённо." />
+  <meta property="og:image" content="https://rrysbekov.ru/Images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Рысбеков Руслан — Frontend-разработчик" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Рысбеков Руслан — Frontend-разработчик (React, TypeScript)" />
+  <meta name="twitter:description"
+    content="React, TypeScript, Next.js, 1С-Битрикс. 7 продакшн-проектов. Сочи / удалённо." />
+  <meta name="twitter:image" content="https://rrysbekov.ru/Images/og-image.jpg" />
+
+  <!-- Шрифты: без блокировки рендера (media=print + onload) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://mc.yandex.ru" />
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+  </noscript>
+
+  <!-- Структурированные данные для поиска и AI-краулеров -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Рысбеков Руслан Замирович",
+      "alternateName": "Руслан Рысбеков",
+      "jobTitle": "Frontend-разработчик",
+      "description": "Frontend-разработчик: React, TypeScript, Next.js, 1С-Битрикс. E-commerce и корпоративные сайты.",
+      "url": "https://rrysbekov.ru/",
+      "image": "https://rrysbekov.ru/Images/og-image.jpg",
+      "email": "mailto:dannykg1996@gmail.com",
+      "telephone": "+7-977-494-52-35",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Сочи",
+        "addressCountry": "RU"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "ИП Dreams"
+      },
+      "knowsAbout": [
+        "React", "TypeScript", "JavaScript", "Next.js", "1С-Битрикс",
+        "Tailwind CSS", "Material UI", "REST API", "Vite", "Git", "Docker", "Figma"
+      ],
+      "sameAs": [
+        "https://github.com/DannyKGZ",
+        "https://t.me/danny_KG",
+        "https://vk.com/danny_kg",
+        "https://sochi.hh.ru/resume/6b1a369bff0dcf2d5e0039ed1f6c3779613774"
+      ]
+    }
   </script>
-  <!-- /Yandex.Metrika counter -->
+
+  <!-- Yandex.Metrika: очередь вызовов сразу, сам счётчик — после отрисовки страницы -->
+  <script>
+    (function (w, d, id) {
+      w.ym = w.ym || function () { (w.ym.a = w.ym.a || []).push(arguments); };
+      w.ym.l = 1 * new Date();
+
+      w.ym(id, 'init', {
+        defer: true,
+        webvisor: true,
+        clickmap: true,
+        accurateTrackBounce: true,
+        trackLinks: true,
+      });
+      w.ym(id, 'hit', location.href, {
+        title: d.title,
+        referer: d.referrer,
+      });
+
+      var loaded = false;
+      function loadMetrika() {
+        if (loaded) return;
+        loaded = true;
+        var s = d.createElement('script');
+        s.async = true;
+        s.src = 'https://mc.yandex.ru/metrika/tag.js?id=' + id;
+        d.head.appendChild(s);
+      }
+
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+        w.addEventListener(ev, loadMetrika, { once: true, passive: true });
+      });
+
+      if (d.readyState === 'complete') {
+        setTimeout(loadMetrika, 1500);
+      } else {
+        w.addEventListener('load', function () { setTimeout(loadMetrika, 1500); }, { once: true });
+      }
+    })(window, document, 110152126);
+  </script>
 </head>
 
 <body>
@@ -40,12 +129,18 @@
       Загрузка портфолио…
     </p>
   </div>
+
   <noscript>
     <div><img src="https://mc.yandex.ru/watch/110152126" style="position:absolute; left:-9999px;" alt="" /></div>
-    <p style="padding:2rem;text-align:center;font-family:system-ui,sans-serif;">
-      Для работы сайта нужен JavaScript. Включите его в настройках браузера.
-    </p>
+    <div style="padding:2rem;max-width:40rem;margin:0 auto;font-family:system-ui,sans-serif;color:#e8e6e3;background:#0c0e12;">
+      <h1>Рысбеков Руслан — Frontend-разработчик</h1>
+      <p>React, TypeScript, Next.js, 1С-Битрикс. 7 продакшн-проектов, опыт с октября 2023 года. Сочи / удалённо.</p>
+      <p>Почта: <a style="color:#fb7828" href="mailto:dannykg1996@gmail.com">dannykg1996@gmail.com</a> ·
+         Telegram: <a style="color:#fb7828" href="https://t.me/danny_KG">@danny_KG</a></p>
+      <p>Для интерактивной версии сайта включите JavaScript.</p>
+    </div>
   </noscript>
+
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

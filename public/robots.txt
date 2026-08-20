@@ -1,14 +1,58 @@
+# rrysbekov.ru — портфолио, одностраничный сайт
+
+# Поисковые системы
 User-agent: Googlebot
 Allow: /
+
+User-agent: Yandex
+Allow: /
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid
 
 User-agent: Bingbot
 Allow: /
 
+# Соцсети — для превью ссылок
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: TelegramBot
+Allow: /
+
+# AI-краулеры: пускаем, сайт-визитка должен попадать в ответы ассистентов
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# SEO-краулеры — не запрещены, но пусть не долбят
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Crawl-delay: 10
+
+User-agent: DotBot
+Crawl-delay: 10
+
 User-agent: *
 Allow: /
+Disallow: /api/
+
+Sitemap: https://rrysbekov.ru/sitemap.xml
+Host: https://rrysbekov.ru

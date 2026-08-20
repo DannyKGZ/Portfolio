@@ -1,67 +1,46 @@
-import { createServer, type IncomingMessage } from 'node:http';
+import { createServer } from 'node:http';
 import { loadEnv } from 'vite';
-import { handleContactSubmission } from '../src/lib/contactFormServer';
-import { getWeb3FormsAccessKeyFromEnv } from '../src/lib/contactFormConfig.server';
-import type { ContactFormPayload } from '../src/lib/contactFormSchema';
+import { handleContactRequest } from './contactRequestHandler';
 
-const env = loadEnv(process.env.NODE_ENV === 'production' ? 'production' : 'development', process.cwd(), '');
+const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+const env = loadEnv(mode, process.cwd(), '');
+
 const PORT = Number(process.env.CONTACT_API_PORT || 8787);
+// По умолчанию слушаем только localhost: наружу порт публикует nginx
+const HOST = process.env.CONTACT_API_HOST || '127.0.0.1';
 
-function readJson(req: IncomingMessage): Promise<ContactFormPayload> {
-  return new Promise((resolve, reject) => {
-    let raw = '';
-    req.on('data', (chunk) => {
-      raw += chunk;
-      if (raw.length > 1_000_000) reject(new Error('Payload too large'));
-    });
-    req.on('end', () => {
-      try {
-        resolve(raw ? (JSON.parse(raw) as ContactFormPayload) : ({} as ContactFormPayload));
-      } catch {
-        reject(new Error('Invalid JSON'));
-      }
-    });
-    req.on('error', reject);
-  });
-}
-
-createServer(async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204);
-    res.end();
+const server = createServer((req, res) => {
+  if (req.url === '/health' || req.url === '/api/contact/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({ ok: true, uptime: Math.round(process.uptime()) }));
     return;
   }
 
-  if (req.url !== '/api/contact' || req.method !== 'POST') {
+  const path = (req.url || '').split('?')[0];
+  if (path !== '/api/contact') {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ ok: false, message: 'Not found' }));
     return;
   }
 
-  try {
-    const payload = await readJson(req);
-    const ip = req.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() || req.socket.remoteAddress;
-
-    const result = await handleContactSubmission(
-      payload,
-      {
-        web3formsAccessKey: getWeb3FormsAccessKeyFromEnv(env),
-        yandexCaptchaServerKey: env.YANDEX_SMARTCAPTCHA_SERVER_KEY,
-        yandexCaptchaClientKey: env.VITE_YANDEX_SMARTCAPTCHA_CLIENT_KEY,
-      },
-      ip,
-    );
-
-    res.writeHead(result.ok ? 200 : result.status, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(result.ok ? { ok: true } : { ok: false, message: result.message, field: result.field }));
-  } catch {
-    res.writeHead(400, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ ok: false, message: 'Некорректный запрос.' }));
-  }
-}).listen(PORT, () => {
-  console.log(`Contact API: http://localhost:${PORT}/api/contact`);
+  void handleContactRequest(req, res, env);
 });
+
+// Обрываем медленные и висящие соединения — базовая защита от slowloris
+server.headersTimeout = 10_000;
+server.requestTimeout = 15_000;
+server.keepAliveTimeout = 5_000;
+server.maxHeadersCount = 50;
+
+server.listen(PORT, HOST, () => {
+  console.log(`Contact API: http://${HOST}:${PORT}/api/contact (${mode})`);
+});
+
+function shutdown(signal: string) {
+  console.log(`${signal} — останавливаю Contact API`);
+  server.close(() => process.exit(0));
+  setTimeout(() => process.exit(1), 5000).unref();
+}
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));

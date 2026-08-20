@@ -33,7 +33,7 @@ export const PROFILE = {
   vkHandle: 'danny_kg',
   github: 'https://github.com/DannyKGZ',
   hh: 'https://sochi.hh.ru/resume/6b1a369bff0dcf2d5e0039ed1f6c3779613774',
-  resumePath: './profile.pdf',
+  resumePath: './Portfolio.pdf',
   resumeFileName: 'Рысбеков-Руслан-резюме.pdf',
   employment: [
     'Полная занятость',

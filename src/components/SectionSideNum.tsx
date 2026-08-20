@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MAIN_SECTIONS } from '@/constants/sections';
 
 const SectionSideNum = () => {
-  const [activeNum, setActiveNum] = useState(MAIN_SECTIONS[0].num);
+  const [activeNum, setActiveNum] = useState<string>(MAIN_SECTIONS[0].num);
   const [visible, setVisible] = useState(true);
   const ratiosRef = useRef<Map<string, number>>(new Map());
 
@@ -12,7 +12,7 @@ const SectionSideNum = () => {
 
     const updateActive = () => {
       let maxRatio = 0;
-      let activeId = MAIN_SECTIONS[0].id;
+      let activeId: string = MAIN_SECTIONS[0].id;
 
       ratiosRef.current.forEach((ratio, id) => {
         if (ratio > maxRatio) {

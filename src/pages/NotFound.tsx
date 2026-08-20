@@ -1,22 +1,17 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
+/** Страница 404 без роутера — сайт одностраничный, зависимость react-router не нужна. */
 const NotFound = () => {
-  const location = useLocation();
-
   useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
-  }, [location.pathname]);
+    document.title = '404 — страница не найдена | Рысбеков Руслан';
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 text-foreground">404</h1>
-        <p className="text-xl text-muted-foreground mb-4">Упс! Страница не найдена</p>
-        <a href="/" className="text-primary-glow hover:text-primary underline">
+      <div className="text-center px-6">
+        <h1 className="text-6xl font-bold mb-4 text-foreground">404</h1>
+        <p className="text-xl text-muted-foreground mb-6">Такой страницы нет</p>
+        <a href="/" className="btn-primary inline-flex">
           Вернуться на главную
         </a>
       </div>

@@ -1,9 +1,10 @@
 import type { ContactFormPayload } from './contactFormSchema';
-import {
-  DEFAULT_WEB3FORMS_ACCESS_KEY,
-  WEB3FORMS_URL,
-  getWeb3FormsAccessKey,
-} from './contactFormConfig';
+import { DEFAULT_WEB3FORMS_ACCESS_KEY, WEB3FORMS_URL } from './contactFormConfig';
+
+/** Ключ Web3Forms на клиенте: из .env, иначе публичный fallback. */
+function getWeb3FormsAccessKey(): string {
+  return import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || DEFAULT_WEB3FORMS_ACCESS_KEY;
+}
 
 type SubmitResult =
   | { ok: true }
@@ -58,7 +59,7 @@ async function submitViaContactApi(data: ContactFormPayload): Promise<SubmitResu
   const result = (await response.json()) as {
     ok?: boolean;
     message?: string;
-    field?: keyof ContactFormPayload;
+    field?: 'name' | 'email' | 'message';
   };
 
   if (!response.ok || !result.ok) {

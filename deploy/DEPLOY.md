@@ -117,3 +117,27 @@ awk '{print $4}' access.log | sort | uniq -c | sort -rn | head -20
 
 и дальше — Cloudflare (режим "Under Attack") либо `limit_req` в nginx,
 который уже прописан в `deploy/nginx.conf`.
+
+---
+
+## 6. Если что-то перестало грузиться после включения CSP
+
+Заголовок `Content-Security-Policy` (в `deploy/nginx.conf` и `public/.htaccess`)
+разрешает только нужные внешние домены: Метрику, Google Fonts, SmartCaptcha
+и Web3Forms. Если добавите новый внешний скрипт или шрифт — его домен нужно
+внести в CSP, иначе браузер его заблокирует.
+
+Диагностика: DevTools → Console, ошибка вида
+`Refused to load ... because it violates the following Content Security Policy directive`.
+В ошибке указана директива (`script-src`, `connect-src`, `font-src`) —
+туда и добавляйте домен.
+
+## 7. Порядок обновления после этих правок
+
+```bash
+npm ci          # package-lock изменился: убраны lenis и react-router-dom
+npm run check   # типы + линт + сборка
+```
+
+Старая папка `dist/` в рабочей копии осталась от прошлой сборки — она
+перезапишется при `npm run build`.

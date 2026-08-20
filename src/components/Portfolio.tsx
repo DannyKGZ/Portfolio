@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import Background3D from './Background3D';
 import Navigation from './Navigation';
 import Hero from './Hero';
@@ -6,10 +6,12 @@ import About from './About';
 import Projects from './Projects';
 import Contact from './Contact';
 import Footer from './Footer';
-import Chatbot from './Chatbot';
 import SectionSideNum from './SectionSideNum';
 import { useSectionAnalytics } from '@/hooks/useSectionAnalytics';
 import { destroySmoothScroll, initSmoothScroll } from '@/lib/scroll';
+
+// Чат-виджет не нужен для первого экрана — грузим отдельным чанком в простое браузера
+const Chatbot = lazy(() => import('./Chatbot'));
 
 const Portfolio = () => {
   useSectionAnalytics();
@@ -29,7 +31,9 @@ const Portfolio = () => {
         <About />
         <Projects />
         <Contact />
-        <Chatbot />
+        <Suspense fallback={null}>
+          <Chatbot />
+        </Suspense>
       </main>
       <Footer />
     </div>

@@ -1,0 +1,35 @@
+# Сервис формы обратной связи: /api/contact
+# Установка:
+#   sudo cp deploy/portfolio-api.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now portfolio-api
+#   systemctl status portfolio-api
+
+[Unit]
+Description=rrysbekov.ru contact form API
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/rrysbekov
+Environment=NODE_ENV=production
+Environment=CONTACT_API_HOST=127.0.0.1
+Environment=CONTACT_API_PORT=8787
+# Ключи берутся из .env в WorkingDirectory (chmod 600, наружу не отдаётся)
+ExecStart=/usr/bin/npx tsx server/runContactApi.ts
+Restart=always
+RestartSec=5
+# Ограничения ресурсов — процесс не должен утянуть за собой сервер
+MemoryMax=256M
+CPUQuota=50%
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/rrysbekov
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

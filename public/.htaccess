@@ -1,8 +1,100 @@
+# ============================================================
+#  rrysbekov.ru — Apache (шаред-хостинг). Кладётся в корень сайта.
+#  Порядок важен: сначала блокировки, потом SPA-фолбэк.
+# ============================================================
+
+Options -Indexes
+ServerSignature Off
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://mc.yandex.com https://yastatic.net https://smartcaptcha.yandexcloud.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://mc.yandex.ru https://mc.yandex.com; connect-src 'self' https://api.web3forms.com https://mc.yandex.ru https://mc.yandex.com https://smartcaptcha.yandexcloud.net; frame-src https://smartcaptcha.yandexcloud.net https://mc.yandex.ru; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'"
+  Header unset X-Powered-By
+</IfModule>
+
+# ---------- Закрываем всё, чего на проде быть не должно ----------
+<FilesMatch "(^\.|\.(env|ts|tsx|map|json|lock|log|md|yml|yaml|sh|bak|old|sql|ini|conf|service)$)">
+  Require all denied
+</FilesMatch>
+
+# Исключения: манифест и служебные файлы должны отдаваться
+<Files "site.webmanifest">
+  Require all granted
+</Files>
+<Files "sitemap.xml">
+  Require all granted
+</Files>
+<Files "robots.txt">
+  Require all granted
+</Files>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # ---------- Бан сканеров: WordPress, .env, админки, бэкапы ----------
+  RewriteCond %{REQUEST_URI} (^|/)(wp-admin|wp-login|wp-content|wp-includes|wordpress|xmlrpc\.php) [NC,OR]
+  RewriteCond %{REQUEST_URI} (^|/)(\.env|\.git|\.svn|\.aws|\.ssh|\.vscode|\.idea) [NC,OR]
+  RewriteCond %{REQUEST_URI} (^|/)(phpmyadmin|pma|adminer|myadmin|cgi-bin|vendor|telescope|actuator|server-status) [NC,OR]
+  RewriteCond %{REQUEST_URI} \.(php|php7|phtml|asp|aspx|jsp|cgi|pl|py|rb|sql|bak|old|zip|tar|gz|rar)$ [NC,OR]
+  RewriteCond %{REQUEST_URI} (^|/)(src|node_modules|server)/ [NC]
+  RewriteRule .* - [F,L]
+
+  # Пустой или подозрительный User-Agent
+  RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+  RewriteCond %{HTTP_USER_AGENT} (sqlmap|nikto|nmap|masscan|zgrab|dirbuster|gobuster|wpscan|havij|acunetix|nessus) [NC]
+  RewriteRule .* - [F,L]
+
+  # ---------- SPA: только для «человеческих» переходов ----------
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
+  # Не подменяем 404 на index.html для статики — иначе битые ассеты «успешно» отдают HTML
+  RewriteCond %{REQUEST_URI} !\.(js|mjs|css|png|jpe?g|gif|svg|webp|avif|ico|pdf|woff2?|ttf|eot|txt|xml|webmanifest)$ [NC]
   RewriteRule . /index.html [L]
+</IfModule>
+
+# ---------- Кэширование ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/pdf "access plus 1 week"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Файлы из /assets/ имеют хэш в имени — можно кэшировать навсегда
+  <FilesMatch "\.(js|mjs|css|woff2?|webp|avif|png|jpe?g|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # index.html всегда свежий, иначе после деплоя пользователи видят старую сборку
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ---------- Сжатие ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/manifest+json
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
 </IfModule>

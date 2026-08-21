@@ -67,5 +67,18 @@ public/                статика: robots.txt, sitemap.xml, .htaccess, favic
 
 **На сервер выкладывается только `dist/`.** Подробно — [deploy/DEPLOY.md](deploy/DEPLOY.md).
 
+Текущий хостинг — Timeweb Cloud App Platform. Настройки деплоя:
+
+| Поле | Значение |
+|---|---|
+| Фреймворк | React (не Next.js) |
+| Зависимости | `npm ci` |
+| Команда сборки | `npm run build` |
+| Директория сборки | `dist` |
+| Путь до проекта | `.` |
+
+Переменные `VITE_*` задаются в панели **до сборки** — Vite подставляет их
+в момент сборки, а не в рантайме.
+
 CI (GitHub Actions) на каждый push проверяет типы, линт и сборку, и отдельно —
 что в `dist/index.html` нет ссылки на исходник `/src/main.tsx`.

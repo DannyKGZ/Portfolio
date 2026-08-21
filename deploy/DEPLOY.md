@@ -18,28 +18,56 @@ curl -sI https://rrysbekov.ru/src/main.tsx | head -1
 
 ---
 
-## 1. Сборка
+## Вариант A — Timeweb Cloud, App Platform (текущий хостинг)
 
-```bash
-npm ci
-npm run check        # типы + линт + сборка
+### Что было настроено неправильно
+
+В панели был выбран фреймворк **Next.js**, а проект — **Vite + React**.
+Платформа не находила `next build`/`.next` и раздавала каталог проекта как есть,
+вместе с `src/`. Отсюда и `GET /src/main.tsx → 200`, и белая страница
+«Загрузка портфолио…» у всех посетителей.
+
+### Правильные настройки деплоя
+
+| Поле | Значение |
+|---|---|
+| Фреймворк | **React** (не Next.js) |
+| Версия окружения | 22 (или 20; на 24 тоже собирается) |
+| Зависимости | `npm ci` |
+| Команда сборки | `npm run build` |
+| Директория сборки | `dist` |
+| Путь до директории проекта | `.` (корень репозитория) |
+| Ветка | `main` |
+
+### Переменные окружения
+
+Задаются в панели **до сборки** — Vite подставляет `VITE_*` в момент
+сборки, а не в рантайме. Изменили переменную → нужен передеплой.
+
+```
+VITE_WEB3FORMS_ACCESS_KEY=<ключ Web3Forms>
+VITE_YANDEX_METRICA_ID=110152126
 ```
 
-После сборки в `dist/` должно быть:
+`VITE_YANDEX_SMARTCAPTCHA_CLIENT_KEY` на App Platform **оставить пустым**:
+это статический хостинг, Node-процесс `/api/contact` там не поднимается,
+и форма должна работать напрямую через Web3Forms. Если хочется капчу
+и серверную проверку — нужен VPS (вариант B).
 
-```
-dist/
-├── index.html          ← ссылается на ./assets/*.js
-├── assets/             ← js и css с хэшами в именах
-├── .htaccess           ← правила для Apache
-├── favicon.ico
-├── robots.txt
-├── sitemap.xml
-├── site.webmanifest
-└── Portfolio.pdf
-```
+### Что на App Platform не работает
 
-## 2. Вариант A — VPS с nginx
+- `deploy/nginx.conf` и `public/.htaccess` не применяются: конфигурацию
+  веб-сервера платформа не отдаёт. Лимиты запросов и бан сканеров оттуда
+  работать не будут.
+- Значит, защиту от ботов на этом хостинге ставим перед сайтом —
+  Cloudflare (бесплатный тариф): проксирование домена, Bot Fight Mode,
+  WAF-правило на `wp-admin|wp-login|xmlrpc|\.env` → Block,
+  Rate limiting на `/`. Плюс он же отдаёт кэш и HTTPS.
+- SPA-фолбэк платформа делает сама, отдельная настройка не нужна.
+
+---
+
+## Вариант B — VPS с nginx
 
 ```bash
 # 1. Код и сборка на сервере
@@ -73,23 +101,25 @@ cd /var/www/rrysbekov && git pull && npm ci && npm run build
 sudo systemctl restart portfolio-api   # если API используется
 ```
 
-## 3. Вариант B — шаред-хостинг (FTP/панель, Apache)
+Здесь работает всё: `limit_req`, бан сканеров, CSP, кэш, серверная капча.
+
+## Вариант C — шаред-хостинг (FTP/панель, Apache)
 
 1. Локально: `npm ci && npm run build`
 2. Загрузить в корень сайта **содержимое** `dist/` (не саму папку `dist`).
 3. Убедиться, что `.htaccess` загрузился — FTP-клиенты часто прячут файлы с точки.
-4. Форма: на шаред-хостинге Node обычно недоступен, поэтому SmartCaptcha
-   оставляем выключенной (`VITE_YANDEX_SMARTCAPTCHA_CLIENT_KEY` пустой) —
-   письма уходят напрямую через Web3Forms.
+4. SmartCaptcha оставить выключенной: Node там обычно недоступен.
 
-## 4. Проверка после деплоя
+---
+
+## Проверка после деплоя
 
 ```bash
 curl -sI https://rrysbekov.ru/                 # 200, Content-Type: text/html
 curl -s  https://rrysbekov.ru/ | grep assets   # ссылка на ./assets/index-*.js
 curl -sI https://rrysbekov.ru/src/main.tsx     # 404/444
 curl -sI https://rrysbekov.ru/.env             # 403/404/444
-curl -sI https://rrysbekov.ru/wp-admin/install.php   # 403/444
+curl -sI https://rrysbekov.ru/wp-admin/install.php   # 403/404/444
 curl -s  https://rrysbekov.ru/robots.txt | head -3   # реальный robots, не HTML
 curl -s  https://rrysbekov.ru/sitemap.xml | head -2  # реальный xml, не HTML
 curl -sI https://rrysbekov.ru/Portfolio.pdf    # 200, application/pdf
@@ -97,46 +127,43 @@ curl -sI https://rrysbekov.ru/Portfolio.pdf    # 200, application/pdf
 
 Дополнительно: открыть сайт в браузере, вкладка Network — не должно быть
 запросов к `/src/*`, а в консоли не должно быть ошибок загрузки модулей.
+Отправить тестовое сообщение через форму и убедиться, что письмо пришло.
 
-## 5. Если снова «положили» сайт
+## Если снова «положили» сайт
 
 Что было в логах 20.08.2026: ~90 запросов за сутки, из них половина —
 Googlebot, ClaudeBot, OAI-SearchBot и сканеры WordPress. **Это не DDoS**,
 такую нагрузку держит любой хостинг. Сайт не открывался не из-за ботов,
-а из-за того, что выложены были исходники.
+а из-за неправильного деплоя.
 
-Реальный признак атаки — сотни запросов в секунду с десятков IP.
-Тогда:
+Реальный признак атаки — сотни запросов в секунду с десятков IP:
 
 ```bash
-# кто больше всех
-awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -20
-# куда долбят
-awk '{print $4}' access.log | sort | uniq -c | sort -rn | head -20
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -20   # кто
+awk '{print $4}' access.log | sort | uniq -c | sort -rn | head -20   # куда
 ```
 
-и дальше — Cloudflare (режим "Under Attack") либо `limit_req` в nginx,
-который уже прописан в `deploy/nginx.conf`.
+Дальше — Cloudflare в режиме "Under Attack" либо `limit_req` из
+`deploy/nginx.conf` (если сайт на VPS).
 
----
-
-## 6. Если что-то перестало грузиться после включения CSP
+## Если что-то перестало грузиться после включения CSP
 
 Заголовок `Content-Security-Policy` (в `deploy/nginx.conf` и `public/.htaccess`)
 разрешает только нужные внешние домены: Метрику, Google Fonts, SmartCaptcha
-и Web3Forms. Если добавите новый внешний скрипт или шрифт — его домен нужно
-внести в CSP, иначе браузер его заблокирует.
+и Web3Forms. Новый внешний скрипт или шрифт нужно внести в CSP, иначе браузер
+его заблокирует.
 
 Диагностика: DevTools → Console, ошибка вида
 `Refused to load ... because it violates the following Content Security Policy directive`.
 В ошибке указана директива (`script-src`, `connect-src`, `font-src`) —
 туда и добавляйте домен.
 
-## 7. Порядок обновления после этих правок
+## Порядок обновления после правок от 21.08.2026
 
 ```bash
 npm ci          # package-lock изменился: убраны lenis и react-router-dom
 npm run check   # типы + линт + сборка
+git push origin main
 ```
 
 Старая папка `dist/` в рабочей копии осталась от прошлой сборки — она

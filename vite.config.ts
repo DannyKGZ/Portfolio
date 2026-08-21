@@ -49,7 +49,7 @@ export default defineConfig(({ mode }) => {
             if (/node_modules\/(react|react-dom|scheduler)\//.test(file)) return 'react';
             if (file.includes('node_modules/gsap')) return 'animation';
             if (/node_modules\/(react-hook-form|@hookform|zod)/.test(file)) return 'form';
-            if (/node_modules\/(phosphor-react|simple-icons)/.test(file)) return 'icons';
+            if (file.includes('node_modules/simple-icons')) return 'icons';
             return undefined;
           },
           entryFileNames: 'assets/[name]-[hash].js',

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Check, DownloadSimple } from 'phosphor-react';
+import { Check, DownloadSimple } from '@/components/icons';
 import { PROFILE } from '@/constants/profile';
 import { trackGoal } from '@/lib/analytics';
 

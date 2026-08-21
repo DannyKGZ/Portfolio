@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PaperPlaneTilt, Envelope, Phone, MapPin } from 'phosphor-react';
+import { PaperPlaneTilt, Envelope, Phone, MapPin } from '@/components/icons';
 import { PROFILE } from '@/constants/profile';
+import { SECTIONS_CHANGED_EVENT } from '@/constants/sections';
 import { submitContactForm } from '@/lib/contactForm';
 import {
   contactFormSchema,
@@ -53,6 +54,11 @@ const Contact = () => {
     },
     mode: 'onTouched',
   });
+
+  // Секция грузится отдельным чанком — сообщаем аналитике, что якорь появился
+  useEffect(() => {
+    window.dispatchEvent(new Event(SECTIONS_CHANGED_EVENT));
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {

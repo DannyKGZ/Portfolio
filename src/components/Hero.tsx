@@ -1,4 +1,4 @@
-import { ArrowRight, Handshake } from 'phosphor-react';
+import { ArrowRight, Handshake } from '@/components/icons';
 import { PROFILE } from '@/constants/profile';
 import { scrollToSection } from '@/lib/scroll';
 import MatrixRain from './MatrixRain';

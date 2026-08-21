@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUp, GithubLogo, TelegramLogo } from 'phosphor-react';
+import { ArrowUp, GithubLogo, TelegramLogo } from '@/components/icons';
 import { siVk } from 'simple-icons';
 import { PROFILE } from '@/constants/profile';
 import { scrollToSection, scrollToTop } from '@/lib/scroll';

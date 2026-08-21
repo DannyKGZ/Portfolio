@@ -4,14 +4,19 @@ import Navigation from './Navigation';
 import Hero from './Hero';
 import About from './About';
 import Projects from './Projects';
-import Contact from './Contact';
 import Footer from './Footer';
 import SectionSideNum from './SectionSideNum';
 import { useSectionAnalytics } from '@/hooks/useSectionAnalytics';
 import { destroySmoothScroll, initSmoothScroll } from '@/lib/scroll';
 
-// Чат-виджет не нужен для первого экрана — грузим отдельным чанком в простое браузера
+// Форма контактов тянет за собой zod и react-hook-form (~95 КБ) и находится
+// внизу страницы — в стартовом бандле ей делать нечего.
+const Contact = lazy(() => import('./Contact'));
+// Чат-виджет не нужен для первого экрана
 const Chatbot = lazy(() => import('./Chatbot'));
+
+/** Заглушка держит высоту и якорь #contact, пока грузится чанк формы */
+const ContactPlaceholder = () => <section id="contact" className="py-24 min-h-[720px]" aria-hidden />;
 
 const Portfolio = () => {
   useSectionAnalytics();
@@ -30,7 +35,9 @@ const Portfolio = () => {
         <Hero />
         <About />
         <Projects />
-        <Contact />
+        <Suspense fallback={<ContactPlaceholder />}>
+          <Contact />
+        </Suspense>
         <Suspense fallback={null}>
           <Chatbot />
         </Suspense>

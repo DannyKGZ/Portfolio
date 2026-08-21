@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight } from 'phosphor-react';
+import { ArrowUpRight } from '@/components/icons';
 import { WORK_EXPERIENCE } from '@/constants/profile';
 import { trackGoal } from '@/lib/analytics';
 

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
-import { ChatCircle, X, PaperPlaneTilt, Robot } from 'phosphor-react';
+import { ChatCircle, X, PaperPlaneTilt, Robot } from '@/components/icons';
 import { PROFILE, WORK_EXPERIENCE } from '@/constants/profile';
 import { trackGoal } from '@/lib/analytics';
 

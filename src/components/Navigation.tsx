@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { List, X } from 'phosphor-react';
+import { List, X } from '@/components/icons';
 import { scrollToSection } from '@/lib/scroll';
 
 const Navigation = () => {
